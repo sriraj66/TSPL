@@ -64,7 +64,7 @@ def user_register(request):
     })
 @login_required
 def user_logout(request):
-    if request.POST:
+    if not request.POST:
         logout(request)
         success(request,"You Have been loged Out!!")
     else:

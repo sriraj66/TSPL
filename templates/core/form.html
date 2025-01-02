@@ -1,9 +1,38 @@
 {% extends '_.html' %}
 
 {% block main %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+
+<section class="page-banner">
+
+    <div class="banner-content">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-6 col-md-8">
+                    <h5 class="banner-title">Online Registration
+                    </h5>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="register-form">
+    <div class="container">
+        <h5 class="register-title">
+            Online Registration Form</h5>   
+
+             <div class="text-center mt-5">
+                                                </div>
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="mt-4 text-end">
+                        <button type="submit" name="Register" class="fancy-button">Register</button>
+                    </div>
+                </form>
+    </div>
+</section>
+
 {% endblock %}

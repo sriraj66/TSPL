@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
-        label="Email",
+        label="Username or Email",
         max_length=150,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Enter your email',
+            'placeholder': 'Enter your Username',
             'required': "true",
             "autocomplete": "off"
         })
@@ -17,7 +17,7 @@ class LoginForm(AuthenticationForm):
         label="Password",
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Enter your password',
+            'placeholder': 'Enter your Password',
             'required': "true",
             "autocomplete": "off"
         })

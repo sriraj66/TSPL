@@ -1,4 +1,135 @@
-<form method="POST">
-    {% csrf_token %} {{form.as_p}}
-    <button type="submit" id="btn" class="btn">Login</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .form {
+            background: linear-gradient(360deg, #0b1494, #040120);
+            height: fit-content;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .register-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: blue;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-left: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background: #5a6fd6;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .register-form .imge {
+            background: blue;
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .errorlist {
+            list-style: none;
+            background-color: rgb(255, 0, 0);
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 1vh;
+        }
+    </style>
+</head>
+
+<body class="form">
+    <div class="container">
+        <form class="register-form" method="post">
+            <h2 >Login</h2>
+
+            <div class="imge">
+                <img src="{% static 'assets/images/logo.png' %}" style="width: 90px; height: 70px;">    
+            </div>
+
+            {% csrf_token %} {{form.as_p}}
+
+            <button type="submit" class="register-btn">Login</button>
+            <p class="login-link">Dont have an account? <a href="{% url 'user_register' %}">Register here</a></p>
+        </form>
+    </div>
+</body>
+
+</html>

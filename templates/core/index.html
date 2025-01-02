@@ -1,5 +1,299 @@
 {% extends '_.html' %}
 
+{% load static %}
 {% block main %}
-    INDEX.HTML
+
+<section class="about-detail counter-section">
+    <h2 class="vertical-text">TSPL</h2>
+    <div class="container">
+        <div class="row gy-5 justify-content-center align-items-center">
+            
+            <div class=" col-lg-6 col-md-12 order-0 order-lg-1">
+                <h5 class="main-subtitle wow fadeInUp" data-wow-delay="0.3s">About Company</h5>
+
+                <h4 class="main-title wow fadeInUp" data-wow-delay="0.4s">Transforming Tamilnadu Cricket: The Rise
+                    of TSPL</h4>
+                <p class="about-text wow fadeInUp" data-wow-delay="0.5s">Tamilnadu Street Premier League
+                    (TSPL) is a premier sports organization committed to advancing softball
+                    cricket throughout Tamilnadu. Founded by Tennis ball Cricket federation, TSPL aims to create
+                    a thriving platform for
+                    aspiring cricketers, providing avenues for skill development, competitive play, and community
+                    engagement. The
+                    association's flagship event, the Tamilnadu Street Premier League (TSPL), showcases
+                    top talent from across
+                    Tamilnadu, with 16 teams representing 36 districts. Known for its grand events, including
+                    franchise launches,
+                    celebrity-backed player auctions, and live telecasts, TSPL is dedicated to enriching
+                    Tamilnadu's cricket culture.</p>
+                <p class="mt-4 banner-btn wow fadeInUp" data-wow-delay="0.7s">
+                    <a href="register.html" class="fancy-button">Register</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="our-team">
+    <div class="container">
+        <div class="row gy-4 align-items-center justify-content-center">
+            <div class="col-lg-6">
+                <h6 class="main-subtitle">Our committee Memebers</h6>
+                <h5 class="main-title">Tournament Organizing Committee</h5>
+                <p class="team-text">At the heart of our organization lies a vibrant and diverse community of
+                    individuals united by shared values and
+                    aspirations. Our community members come from all walks of life, contributing unique
+                    perspectives, skills, and
+                    experiences. They are the driving force behind our mission, fostering collaboration,
+                    inclusivity, and growth. Whether
+                    they are long-time contributors or new faces, each member plays a vital role in shaping the
+                    future of our community.</p>
+                <p class="team-text">Through active participation and support, our members engage in meaningful
+                    conversations, share valuable insights, and
+                    empower one another. Together, they create an environment where innovation thrives,
+                    relationships are built, and
+                    collective goals are achieved.</p>
+                <p class="mt-4"><a href="commitie.html" class="fancy-button"><span>All Members</span></a></p>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="ms-lg-5">
+                    <div class="row gy-2 justify-content-around align-items-center">
+                        <div class="col-6">
+                            <div class="team-card">
+                                <div class="team-img">
+                                    <img src="{% static 'assets/images/t-natarajan.jpg"' %} alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="team-card mt-5">
+                                <div class="team-img">
+                                    <img src="{% static 'assets/images/aswin.webp' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="news-events">
+    <div class="container">
+        <h6 class="main-subtitle text-center">Events</h6>
+        <h5 class="main-title  text-center">News and Events</h5>
+
+        <div class="mt-5">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card-big">
+                        <div class="img-box">
+                            <img src="{% static 'assets/images/gallery/img-0.webp' %}" alt="">
+                            <div class="card-content">
+                                <!-- <p class="card-text">June 19, 2023</p> -->
+                                <h5 class="card-title">Tennis Ball Cricket
+                                </h5>
+                                <p class="read-link"><a href="tennies-ball-cricket.html">Read More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card-big">
+                        <div class="img-box">
+                            <img src="{% static 'assets/images/gallery/img-1.webp' %}" alt="">
+                            <div class="card-content">
+                                <!-- <p class="card-text">Nov 8, 2023</p> -->
+                                <h5 class="card-title">Who Can Register
+                                </h5>
+                                <p class="read-link"><a href="who-can-register.html">Read More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card-list">
+                        <div class="row gy-4">
+                            <div class="col-lg-12 col-md-6">
+                                <div class="news-card-small">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <div class="img-box">
+                                                <img src="{% static 'assets/images/gallery/img-8.webp' %}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <!-- <p class="card-text">Aug 24, 2023</p> -->
+                                            <h5 class="card-title">Indian Street Premier League (ISPL) 2025: Teams & Players Revealed</h5>
+                                            <p class="read-link"><a href="ispl-player-revealed.html">Read More</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6">
+                                <div class="news-card-small">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <div class="img-box">
+                                                <img src="{% static 'assets/images/gallery/img-16.webp' %}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <!-- <p class="card-text">Sep 11, 2023</p> -->
+                                            <h5 class="card-title">Own a TSPL Franchise Team</h5>
+                                            <p class="read-link"><a href="own-a-tspl-franchise-team.html">Read More</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6">
+                                <div class="news-card-small">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <div class="img-box">
+                                                <img src="{% static 'assets/images/gallery/img-18.webp' %}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <!-- <p class="card-text">Dec 1, 2023</p> -->
+                                            <h5 class="card-title">TSPL-T10 AUCTIONS 2025</h5>
+                                            <p class="read-link"><a href="tspl-t10-action.html">Read More</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="our-gallery">
+    <div class="container">
+        <h6 class="main-subtitle">GALLERY</h6>
+        <h5 class="main-title">Image Gallery</h5>
+        <div class="row g-2 mt-4">
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="img-box wow zoomIn" data-wow-delay="0.4s">
+                    <img src="./assets/images/gallery/img-1.webp" alt="">
+                    <div class="overlay-box">
+                        <ul class="options-box">
+                            <li><a class="lightbox-image" title="Image Title Here" data-fancybox="gallery1"
+                                    href="./assets/images/gallery/img-1.webp"><span
+                                        class="icon fa-solid fa-magnifying-glass"></span></a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="img-box wow zoomIn" data-wow-delay="0.4s">
+                    <img src="./assets/images/gallery/img-2.webp" alt="">
+                    <div class="overlay-box">
+                        <ul class="options-box">
+                            <li><a class="lightbox-image" title="Image Title Here" data-fancybox="gallery1"
+                                    href="./assets/images/gallery/img-2.webp"><span
+                                        class="icon fa-solid fa-magnifying-glass"></span></a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="img-box wow zoomIn" data-wow-delay="0.4s">
+                    <img src="./assets/images/gallery/img-3.webp" alt="">
+                    <div class="overlay-box">
+                        <ul class="options-box">
+                            <li><a class="lightbox-image" title="Image Title Here" data-fancybox="gallery1"
+                                    href="./assets/images/gallery/img-3.webp"><span
+                                        class="icon fa-solid fa-magnifying-glass"></span></a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="img-box wow zoomIn" data-wow-delay="0.4s">
+                    <img src="./assets/images/gallery/img-4.webp" alt="">
+                    <div class="overlay-box">
+                        <ul class="options-box">
+                            <li><a class="lightbox-image" title="Image Title Here" data-fancybox="gallery1"
+                                    href="./assets/images/gallery/img-4.webp"><span
+                                        class="icon fa-solid fa-magnifying-glass"></span></a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="img-box wow zoomIn" data-wow-delay="0.4s">
+                    <img src="./assets/images/gallery/img-5.webp" alt="">
+                    <div class="overlay-box">
+                        <ul class="options-box">
+                            <li><a class="lightbox-image" title="Image Title Here" data-fancybox="gallery1"
+                                    href="./assets/images/gallery/img-5.webp"><span
+                                        class="icon fa-solid fa-magnifying-glass"></span></a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="img-box wow zoomIn" data-wow-delay="0.4s">
+                    <img src="./assets/images/gallery/img-6.webp" alt="">
+                    <div class="overlay-box">
+                        <ul class="options-box">
+                            <li><a class="lightbox-image" title="Image Title Here" data-fancybox="gallery1"
+                                    href="./assets/images/gallery/img-6.webp"><span
+                                        class="icon fa-solid fa-magnifying-glass"></span></a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="img-box wow zoomIn" data-wow-delay="0.4s">
+                    <img src="./assets/images/gallery/img-7.webp" alt="">
+                    <div class="overlay-box">
+                        <ul class="options-box">
+                            <li><a class="lightbox-image" title="Image Title Here" data-fancybox="gallery1"
+                                    href="./assets/images/gallery/img-7.webp"><span
+                                        class="icon fa-solid fa-magnifying-glass"></span></a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="img-box wow zoomIn" data-wow-delay="0.4s">
+                    <img src="./assets/images/gallery/img-8.webp" alt="">
+                    <div class="overlay-box">
+                        <ul class="options-box">
+                            <li><a class="lightbox-image" title="Image Title Here" data-fancybox="gallery1"
+                                    href="./assets/images/gallery/img-8.webp"><span
+                                        class="icon fa-solid fa-magnifying-glass"></span></a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
