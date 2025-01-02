@@ -1,140 +1,142 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Success</title>
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
 
-body {
-    background: #f0f2f5;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        body {
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.container {
-    width: 100%;
-    padding: 20px;
-}
+        .container {
+            width: 100%;
+            padding: 20px;
+        }
 
-.success-card {
-    background: white;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
+        .success-card {
+            background: white;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-.success-icon {
-    width: 80px;
-    height: 80px;
-    background: #4CAF50;
-    color: white;
-    font-size: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-}
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4CAF50;
+            color: white;
+            font-size: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
 
-h1 {
-    color: #333;
-    margin-bottom: 15px;
-    font-size: 28px;
-}
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
 
-.message {
-    color: #666;
-    margin-bottom: 25px;
-    font-size: 16px;
-}
+        .message {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
 
-.details {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-}
+        .details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
 
-.details p {
-    color: #555;
-    margin: 10px 0;
-    font-size: 14px;
-}
+        .details p {
+            color: #555;
+            margin: 10px 0;
+            font-size: 14px;
+        }
 
-.buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-.btn {
-    text-decoration: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
+        .btn {
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
 
-.primary {
-    background: #4CAF50;
-    color: white;
-}
+        .primary {
+            background: #4CAF50;
+            color: white;
+        }
 
-.primary:hover {
-    background: #45a049;
-}
+        .primary:hover {
+            background: #45a049;
+        }
 
-.secondary {
-    background: #f8f9fa;
-    color: #333;
-    border: 1px solid #ddd;
-}
+        .secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
 
-.secondary:hover {
-    background: #e9ecef;
-}
+        .secondary:hover {
+            background: #e9ecef;
+        }
 
-/* Responsive Design */
-@media (max-width: 480px) {
-    .success-card {
-        padding: 30px 15px;
-    }
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .success-card {
+                padding: 30px 15px;
+            }
 
-    .success-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 30px;
-    }
+            .success-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+            }
 
-    h1 {
-        font-size: 24px;
-    }
+            h1 {
+                font-size: 24px;
+            }
 
-    .buttons {
-        flex-direction: column;
-    }
+            .buttons {
+                flex-direction: column;
+            }
 
-    .btn {
-        width: 100%;
-        text-align: center;
-    }
-}
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="success-card">
@@ -152,4 +154,5 @@ h1 {
         </div>
     </div>
 </body>
+
 </html>

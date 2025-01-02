@@ -7,7 +7,9 @@
     <h2 class="vertical-text">TSPL</h2>
     <div class="container">
         <div class="row gy-5 justify-content-center align-items-center">
-            
+            <div class="col-lg-6 col-md-8 order-1 order-lg-0">
+                <img src="{% static 'assets/images/rb_4623.png' %}" width="100%" alt="">
+            </div>
             <div class=" col-lg-6 col-md-12 order-0 order-lg-1">
                 <h5 class="main-subtitle wow fadeInUp" data-wow-delay="0.3s">About Company</h5>
 
@@ -26,7 +28,7 @@
                     celebrity-backed player auctions, and live telecasts, TSPL is dedicated to enriching
                     Tamilnadu's cricket culture.</p>
                 <p class="mt-4 banner-btn wow fadeInUp" data-wow-delay="0.7s">
-                    <a href="{% static 'form.html' %}" class="fancy-button">Register</a>
+                    <a href="{% url 'register_form' %}" class="fancy-button w-100 text-center">Register</a>
                 </p>
             </div>
         </div>
@@ -53,7 +55,7 @@
                     empower one another. Together, they create an environment where innovation thrives,
                     relationships are built, and
                     collective goals are achieved.</p>
-                <p class="mt-4"><a href="./blog/commitie.html" class="fancy-button"><span>All Members</span></a></p>
+                <p class="mt-4"><a href="{% url 'commitie' %}" class="fancy-button text-center w-100"><span>All Members</span></a></p>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="ms-lg-5">
@@ -61,7 +63,7 @@
                         <div class="col-6">
                             <div class="team-card">
                                 <div class="team-img">
-                                    <img src="{% static 'assets/images/t-natarajan.jpg"' %} alt="">
+                                    <img src="{% static 'assets/images/t-natarajan.jpg' %}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -95,7 +97,7 @@
                                 <!-- <p class="card-text">June 19, 2023</p> -->
                                 <h5 class="card-title">Tennis Ball Cricket
                                 </h5>
-                                <p class="read-link"><a href="./blog/tennies-ball-cricket.html">Read More</a></p>
+                                <p class="read-link"><a href="{% url 'tennies_ball_cricket' %}">Read More</a></p>
                             </div>
                         </div>
                     </div>
@@ -108,7 +110,7 @@
                                 <!-- <p class="card-text">Nov 8, 2023</p> -->
                                 <h5 class="card-title">Who Can Register
                                 </h5>
-                                <p class="read-link"><a href="./blog/who-can-register.html">Read More</a></p>
+                                <p class="read-link"><a href="{% url 'who_can_register' %}">Read More</a></p>
                             </div>
                         </div>
                     </div>
@@ -127,7 +129,7 @@
                                         <div class="col-8">
                                             <!-- <p class="card-text">Aug 24, 2023</p> -->
                                             <h5 class="card-title">Indian Street Premier League (ISPL) 2025: Teams & Players Revealed</h5>
-                                            <p class="read-link"><a href="./blog/ispl-player-revealed.html">Read More</a></p>
+                                            <p class="read-link"><a href="{% url 'ispl_player_revealed' %}">Read More</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +145,7 @@
                                         <div class="col-8">
                                             <!-- <p class="card-text">Sep 11, 2023</p> -->
                                             <h5 class="card-title">Own a TSPL Franchise Team</h5>
-                                            <p class="read-link"><a href="./blog/own-a-tspl-franchise-team.html">Read More</a></p>
+                                            <p class="read-link"><a href="{% url 'own_tspl_franchise' %}">Read More</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +161,7 @@
                                         <div class="col-8">
                                             <!-- <p class="card-text">Dec 1, 2023</p> -->
                                             <h5 class="card-title">TSPL-T10 AUCTIONS 2025</h5>
-                                            <p class="read-link"><a href="./blog/tspl-t10-action.html">Read More</a></p>
+                                            <p class="read-link"><a href="{% url 'tspl_t10_action' %}">Read More</a></p>
                                         </div>
                                     </div>
                                 </div>

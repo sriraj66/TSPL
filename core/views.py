@@ -62,9 +62,10 @@ def user_register(request):
     return render(request, "auth/register.html", {
         "form": form
     })
+    
 @login_required
 def user_logout(request):
-    if not request.POST:
+    if request.POST:
         logout(request)
         success(request,"You Have been loged Out!!")
     else:
@@ -74,3 +75,49 @@ def user_logout(request):
 
 def success_page(request):
     return render(request,'core/success.html')
+
+# EXTRA'S
+def about(request):
+    return render(request,"core/about.html")
+
+
+def contact(request):
+    return render(request,"core/contactus.html")
+
+
+def newsevents(request):
+    return render(request,"core/newsevents.html")
+
+# BLOGS
+
+def commitie(request):
+    return render(request,"core/blog/commitie.html")
+
+
+def gallery(request):
+    return render(request,"core/blog/imagegallery.html")
+
+def vgallery(request):
+    return render(request,"core/blog/videogallery.html")
+
+def pp(request):
+    return render(request,"core/blog/privacy-policy.html")
+
+def tc(request):
+    return render(request,"core/blog/tearms-and-condition.html")
+
+
+def b1(request):
+    return render(request,"core/blog/ispl-player-revealed.html")
+
+def b2(request):
+    return render(request,"core/blog/own-a-tspl-franchise-team.html")
+
+def b3(request):
+    return render(request,"core/blog/tennies-ball-cricket.html")
+
+def b4(request):
+    return render(request,"core/blog/tspl-t10-action.html")
+
+def b5(request):
+    return render(request,"core/blog/who-can-register.html")
