@@ -1,0 +1,100 @@
+{% extends '_.html' %}
+
+{% load static %}
+{% block main %}
+<section class="page-banner">
+
+    <div class="banner-content">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-6 col-md-8">
+                    <h5 class="banner-title">News & Events
+                    </h5>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="news-events" style="background: #fff !important;">
+    <div class="container">
+        <h6 class="main-subtitle text-center">Events</h6>
+        <h5 class="main-title  text-center">News and Events</h5>
+
+        <div class="mt-5">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card-big">
+                        <div class="img-box">
+                            <img src="{% static './assets/images/gallery/img-0.webp' %}" alt="">
+                            <div class="card-content">
+                                <!-- <p class="card-text">June 19, 2023</p> -->
+                                <h5 class="card-title">Tennis Ball Cricket
+                                </h5>
+                                <p class="read-link"><a href="./blog/tennies-ball-cricket.html">Read More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card-big">
+                        <div class="img-box">
+                            <img src="{% static './assets/images/gallery/img-1.webp' %}" alt="">
+                            <div class="card-content">
+                                <!-- <p class="card-text">Nov 8, 2023</p> -->
+                                <h5 class="card-title">Who Can Register
+                                </h5>
+                                <p class="read-link"><a href="./blog/who-can-register.html">Read More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card-big">
+                        <div class="img-box">
+                            <img src="{% static './assets/images/gallery/img-8.webp' %}" alt="">
+                            <div class="card-content">
+                                <!-- <p class="card-text">Aug 24, 2023</p> -->
+                                <h5 class="card-title">Indian Street Premier League (ISPL) 2025: Teams & Players Revealed
+                                </h5>
+                                <p class="read-link"><a href="./blog/ispl-player-revealed.html">Read More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card-big">
+                        <div class="img-box">
+                            <img src="{% static './assets/images/gallery/img-16.webp' %}" alt="">
+                            <div class="card-content">
+                                <!-- <p class="card-text">Sep 11, 2023</p> -->
+                                <h5 class="card-title">Own a TSPL Franchise Team
+                                </h5>
+                                <p class="read-link"><a href="./blog/own-a-tspl-franchise-team.html">Read More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card-big">
+                        <div class="img-box">
+                            <img src="{% static './assets/images/gallery/img-18.webp' %}" alt="">
+                            <div class="card-content">
+                                <!-- <p class="card-text">Dec 1, 2023</p> -->
+                                <h5 class="card-title">TSPL-T10 AUCTIONS 2025
+                                </h5>
+                                <p class="read-link"><a href="./blog/tspl-t10-action.html">Read More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
