@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <title>TSPL</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon">
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,6 +18,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/meanmenu.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/owl.theme.default.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RDG53F2TG"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5RDG53F2TG');
+    </script>
     <style>
         .alert-error{
             background-color: rgb(255, 0, 0);
