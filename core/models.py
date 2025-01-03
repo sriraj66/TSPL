@@ -38,8 +38,10 @@ class PlayerRegistration(models.Model):
     email = models.EmailField(verbose_name='Email Address')
     adhar_card = models.CharField(max_length=12, unique=True, verbose_name='Aadhar Card Number')
     player_image = models.ImageField(upload_to='player_images/', verbose_name='Player Image')
-    district = models.CharField(max_length=100, verbose_name='District')
-    state = models.CharField(max_length=2, choices=STATES, verbose_name='State')
+    district = models.CharField(max_length=100,choices=DISTRICT_CHOICES, verbose_name='District')
+    
+    zone = models.CharField(max_length=10, editable=False, verbose_name="ZONE",default="ZONE A")
+    
     pin_code = models.PositiveIntegerField(verbose_name='PIN Code')
     address = models.TextField(verbose_name='Address')
     level = models.CharField(max_length=20, choices=LEVELS, verbose_name='Player Level')
@@ -54,10 +56,12 @@ class PlayerRegistration(models.Model):
     
     created = models.DateTimeField(auto_now_add=True,verbose_name="Created At")
 
-
     class Meta:
         ordering = ['-created']
-    
+
+    def save(self, *args, **kwargs):
+        self.zone = DISTRICT_ZONE_MAP.get(self.district, 'Unknown')
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.player_name
