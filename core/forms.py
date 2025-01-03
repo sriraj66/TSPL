@@ -75,7 +75,6 @@ class PlayerRegistrationForm(forms.ModelForm):
     class Meta:
         model = PlayerRegistration
         fields = [
-            'registration_category',
             'player_name',
             'father_name',
             'mother_name',
@@ -92,7 +91,7 @@ class PlayerRegistrationForm(forms.ModelForm):
             'address',
             'level',
             'bowling_arm',
-            'bowling_pace',
+            'role',
             'first_preference',
             'captain_exp',
         ]
@@ -109,17 +108,15 @@ class PlayerRegistrationForm(forms.ModelForm):
             'player_image' : forms.FileInput(attrs={'class':'form-control',"name":"formFile","accept" : "image/*"}),
             'pin_code': forms.NumberInput(attrs={'class': 'form-control'}),
             'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'registration_category': forms.Select(attrs={'class': 'form-control'}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
             'tshirt_size': forms.Select(attrs={'class': 'form-control'}),
             'level': forms.Select(attrs={'class': 'form-control'}),
             'bowling_arm': forms.Select(attrs={'class': 'form-control'}),
-            'bowling_pace': forms.Select(attrs={'class': 'form-control'}),
+            'role': forms.Select(attrs={'class': 'form-select'}),
             'first_preference': forms.Select(attrs={'class': 'form-control'}),
             'captain_exp': forms.Select(attrs={'class': 'form-control'}),
         }
         labels = {
-            'registration_category': 'Registration Category',
             'player_name': 'Player Name',
             'father_name': 'Father\'s Name',
             'mother_name': 'Mother\'s Name',
@@ -136,7 +133,7 @@ class PlayerRegistrationForm(forms.ModelForm):
             'address': 'Address',
             'level': 'Player Level',
             'bowling_arm': 'Bowling Arm',
-            'bowling_pace': 'Bowling Pace',
+            'role': 'Bowling Pace',
             'first_preference': 'First Preference',
             'captain_exp': 'Captain Experience',
         }

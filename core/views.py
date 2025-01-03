@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import PlayerRegistrationForm,LoginForm,RegisterForm,User
+from .forms import PlayerRegistrationForm,LoginForm,RegisterForm,PlayerRegistration
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import success,warning,error
@@ -11,7 +11,12 @@ def index(request):
 
 @login_required
 def register_form(request):
-    # user = User.objects.get(request.user)
+    
+    if len(PlayerRegistration.objects.filter(user=request.user)) != 0:
+        error(request,"You Alredy Registered")
+        print("Alredy Exist")
+        return redirect('index') 
+    
     if request.method == 'POST':
         form = PlayerRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
@@ -39,6 +44,8 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request,user)
+            success(request,f"Welcome back {user.get_full_name()} !!")
+            
             return redirect("index")
     else:
         form = LoginForm()
@@ -56,6 +63,7 @@ def user_register(request):
             user.email = user.username  
             user.save()  
             login(request, user)
+            success(request,f"Welcome {user.get_full_name()}")
             return redirect("index")
     else:
         form = RegisterForm()
@@ -67,9 +75,6 @@ def user_register(request):
 def user_logout(request):
     if request.POST:
         logout(request)
-        success(request,"You Have been loged Out!!")
-    else:
-        error(request,"Invalid Request !!")
     return redirect("user_login")
 
 

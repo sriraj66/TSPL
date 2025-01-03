@@ -22,6 +22,27 @@ LEVELS = [
     ('advanced', 'Advanced'),
 ]
 
+ROLE = [
+    ("Right Hand Batsman", "Right Hand Batsman"),
+    ("Left Hand Batsman", "Left Hand Batsman"),
+    ("Opener", "Opener"),
+    ("Middle-Order Batsman", "Middle-Order Batsman"),
+    ("Lower-Order Batsman", "Lower-Order Batsman"),
+    ("Wicketkeeper Batsman", "Wicketkeeper"),
+    ("Right Hand Bowler", "Right Hand Bowler"),
+    ("Left Hand Bowler", "Left Hand Bowler"),
+    ("Fast Bowler", "Fast Bowler"),
+    ("Medium-Pace Bowler", "Medium-Pace Bowler"),
+    ("Spin Bowler", "Spin Bowler"),
+    ("All-Rounder", "All-Rounder"),
+    ("Opening Bowler", "Opening Bowler"),
+    ("Death Bowler", "Death Bowler"),
+    ("Part-Time Bowler", "Part-Time Bowler"),
+    ("Fielding Specialist", "Fielding Specialist"),
+    ("Power-Hitter", "Power-Hitter"),
+]
+
+
 BOWLING_ARMS = [
     ('left', 'Left'),
     ('right', 'Right'),

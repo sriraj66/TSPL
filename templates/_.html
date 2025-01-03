@@ -17,6 +17,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/meanmenu.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/owl.theme.default.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
+    <style>
+        .alert-error{
+            background-color: rgb(255, 0, 0);
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -190,8 +196,18 @@
         </nav>
     </div>
    
+    <div class="container m-3">
+        {% if messages %}
+            {% for i in messages %}
+            <div class="alert alert-{{i.tags}} alert-dismissible fade show" role="alert">
+                {{i.message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
 
-
+    </div>
+    
     {% block main %}
     
     {% endblock %}

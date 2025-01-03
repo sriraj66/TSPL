@@ -25,8 +25,6 @@ class PlayerRegistration(models.Model):
          editable = False) 
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='User')
-    registration_category = models.CharField(max_length=20, choices=REGISTRATION_CATEGORIES, verbose_name='Registration Category')
-    date_application = models.DateField(auto_now_add=True, verbose_name='Date of Application')
     player_name = models.CharField(max_length=100, verbose_name='Player Name')
     father_name = models.CharField(max_length=100, verbose_name='Father’s Name')
     mother_name = models.CharField(max_length=100, verbose_name='Mother’s Name')
@@ -45,11 +43,11 @@ class PlayerRegistration(models.Model):
     pin_code = models.PositiveIntegerField(verbose_name='PIN Code')
     address = models.TextField(verbose_name='Address')
     level = models.CharField(max_length=20, choices=LEVELS, verbose_name='Player Level')
-    bowling_arm = models.CharField(max_length=10, choices=BOWLING_ARMS, verbose_name='Bowling Arm')
-    bowling_pace = models.CharField(max_length=10, choices=BOWLING_PACES, verbose_name='Bowling Pace')
     first_preference = models.CharField(max_length=10, choices=FIRST_PREFERENCES, verbose_name='First Preference')
+    batting_arm = models.CharField(max_length=10, choices=BOWLING_ARMS, verbose_name='Batting Arm')
+    bowling_arm = models.CharField(max_length=10, choices=BOWLING_ARMS, verbose_name='Bowling Arm')
     captain_exp = models.CharField(max_length=3, choices=CAPTAIN_EXPERIENCES, verbose_name='Captain Experience')
-
+    role = models.CharField(max_length=100,choices=ROLE,verbose_name="Player Role",default=0)
 
     is_paid = models.BooleanField(default=False,verbose_name="Is Player Paid")
     tx_id = models.CharField(blank=True,max_length=255,verbose_name="Transition ID#")
