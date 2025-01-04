@@ -4,13 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+      .btn_container{
+        display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+      }
+      .pay-button {
+  width: 80%;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  background-color:  #2563eb;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.pay-button:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.pay-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  font-size: 1.25rem;
+  transition: transform 0.2s ease;
+}
+
+.pay-button:hover .button-icon {
+  transform: translateX(4px);
+}
+    </style>
 </head>
 <body>
     
 
     <div class="btn_container">
         <!-- Payment Button -->
-        <button class="btn" id="pay-btn">PayNow</button>
+        <button class="pay-button">
+          <span class="button-text">Pay Now</span>
+          <span class="button-icon">→</span>
+        </button>
       </div>
 
     <!-- Razorpay's Javascript code. -->
