@@ -1,39 +1,104 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from .forms import PlayerRegistrationForm,LoginForm,RegisterForm,PlayerRegistration
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import success,warning,error
 from django.contrib.auth import logout,login
+import razorpay
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseBadRequest
+
+
+client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
 
 def index(request):
     context = {}
     return render(request,"core/index.html",context)
 
+
 @login_required
 def register_form(request):
-    
-    if len(PlayerRegistration.objects.filter(user=request.user)) != 0:
-        error(request,"You Alredy Registered")
-        print("Alredy Exist")
-        return redirect('index') 
-    
+    if PlayerRegistration.objects.filter(user=request.user).exists():
+        error(request, "You already registered")
+        return redirect('index')
+
     if request.method == 'POST':
         form = PlayerRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             player_registration = form.save(commit=False)
-            player_registration.user = request.user       
-            player_registration.save()                    
-            return redirect('success_page')               
+            player_registration.user = request.user
+            player_registration.save()
+
+
+            amount = 1 * 100
+            order_currency = "INR"
+            order_receipt = f"rcpt_{player_registration.id}"[:40]  # Ensuring max 40 chars
+            
+            try:
+                razorpay_order = client.order.create({
+                    "amount": amount,
+                    "currency": order_currency,
+                    "receipt": order_receipt,
+                    "payment_capture": 1,
+                })
+            except razorpay.errors.BadRequestError as e:
+                error(request, f"Failed to create Razorpay order: {str(e)}")
+                return redirect("index")
+
+            context = {
+                "razorpay_order_id": razorpay_order["id"],
+                "razorpay_key": settings.RAZORPAY_KEY_ID,
+                "amount": amount,
+                "currency": order_currency
+            }
+            return render(request, 'core/payment.html', context)
+
     else:
-        form = PlayerRegistrationForm(initial={'player_name': f'{request.user.get_full_name()}'})
-        
-        
-    return render(request,"core/form.html",{
-        "form": form
-    })
+        form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name()})
+
+    return render(request, "core/form.html", {"form": form})
 
 
+@csrf_exempt
+def payment_handler(request):
+    if request.method == "POST":
+        try:
+            payment_id = request.POST.get('razorpay_payment_id', '')
+            razorpay_order_id = request.POST.get('razorpay_order_id', '')
+            signature = request.POST.get('razorpay_signature', '')
+            params_dict = {
+                'razorpay_order_id': razorpay_order_id,
+                'razorpay_payment_id': payment_id,
+                'razorpay_signature': signature
+            }
 
+            # verify the payment signature.
+            result = client.utility.verify_payment_signature(
+                params_dict)
+            if result is not None:
+                amount = 1 * 100  # Rs. 200
+                try:
+
+                    client.payment.capture(payment_id, amount)
+                    return redirect("success_page")
+                except Exception as e:
+                    print(e)
+                    # if there is an error while capturing payment.
+                    return render(request, 'paymentfail.html')
+            else:
+
+                # if signature verification fails.
+                return render(request, 'paymentfail.html')
+        except:
+
+            # if we don't find the required parameters in POST data
+            return HttpResponseBadRequest()
+    else:
+       # if other than POST request is made.
+        return HttpResponseBadRequest()
+    
 def user_login(request):
     if request.user.is_authenticated:
         return redirect("index")

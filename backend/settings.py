@@ -13,7 +13,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.getenv("SECRET_KEY")== "1"
+DEBUG = os.getenv("SECRET_KEY")== "0"
+# DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -136,3 +137,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0:8000', 'http://127.0.0.1:8000']
+
+
+
+# settings.py
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
