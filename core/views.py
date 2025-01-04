@@ -68,37 +68,41 @@ def payment_handler(request):
             payment_id = request.POST.get('razorpay_payment_id', '')
             razorpay_order_id = request.POST.get('razorpay_order_id', '')
             signature = request.POST.get('razorpay_signature', '')
+
             params_dict = {
                 'razorpay_order_id': razorpay_order_id,
                 'razorpay_payment_id': payment_id,
                 'razorpay_signature': signature
             }
 
-            # verify the payment signature.
-            result = client.utility.verify_payment_signature(
-                params_dict)
-            
-            if result is not None:
-                amount = 1 * 100  # Rs. 200
-                try:
-                    print(result)
-                    client.payment.capture(payment_id, amount)
-                    return redirect("success_page")
-                except Exception as e:
-                    print("ERROR : ",e)
-                    # if there is an error while capturing payment.
-                    return render(request, 'paymentfail.html')
-            else:
-
-                # if signature verification fails.
+            # Verify the payment signature
+            try:
+                client.utility.verify_payment_signature(params_dict)
+            except Exception as e:
+                print("Signature verification failed:", e)
                 return render(request, 'paymentfail.html')
-        except:
 
-            # if we don't find the required parameters in POST data
+            # Fetch payment details
+            payment_details = client.payment.fetch(payment_id)
+            if payment_details['status'] == 'captured':
+                print("Payment already captured.")
+                return redirect("success_page")
+
+            # Capture the payment
+            amount = int(payment_details['amount'])  # Amount should match
+            try:
+                client.payment.capture(payment_id, amount)
+                return redirect("success_page")
+            except Exception as e:
+                print("Capture failed:", e)
+                return render(request, 'paymentfail.html')
+
+        except Exception as e:
+            print("Unexpected error:", e)
             return HttpResponseBadRequest()
     else:
-       # if other than POST request is made.
         return HttpResponseBadRequest()
+
     
 def user_login(request):
     if request.user.is_authenticated:
@@ -111,7 +115,6 @@ def user_login(request):
             user = form.get_user()
             login(request,user)
             success(request,f"Welcome back {user.get_full_name()} !!")
-            
             return redirect("index")
     else:
         form = LoginForm()
@@ -134,7 +137,7 @@ def user_register(request):
     else:
         form = RegisterForm()
     return render(request, "auth/register.html", {
-        "form": form
+        "form": form,
     })
     
 @login_required
