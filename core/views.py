@@ -51,7 +51,8 @@ def register_form(request):
                 "razorpay_order_id": razorpay_order["id"],
                 "razorpay_key": settings.RAZORPAY_KEY_ID,
                 "amount": amount,
-                "currency": order_currency
+                "currency": order_currency,
+                "callback_url" : f"https://tspl.hattricksolution.in/paymenthandler/{player_registration.id}"
             }
             return render(request, 'core/payment.html', context)
 
@@ -62,9 +63,14 @@ def register_form(request):
 
 
 @csrf_exempt
-def payment_handler(request):
+def payment_handler(request,id):
     if request.method == "POST":
         try:
+            obj = PlayerRegistration.objects.get(id=id)
+            
+            if not obj:
+                return HttpResponseBadRequest()
+            
             payment_id = request.POST.get('razorpay_payment_id', '')
             razorpay_order_id = request.POST.get('razorpay_order_id', '')
             signature = request.POST.get('razorpay_signature', '')
@@ -75,27 +81,48 @@ def payment_handler(request):
                 'razorpay_signature': signature
             }
 
-            # Verify the payment signature
             try:
                 client.utility.verify_payment_signature(params_dict)
             except Exception as e:
                 print("Signature verification failed:", e)
-                return render(request, 'paymentfail.html')
+                return render(request, 'paymentfail.html',{"message":str(e)})
+                
 
-            # Fetch payment details
             payment_details = client.payment.fetch(payment_id)
             if payment_details['status'] == 'captured':
                 print("Payment already captured.")
-                return redirect("success_page")
+                
+                context = {
+                    "id" : payment_details['id'],
+                    "reg_id" : obj.id,
+                    "order_id" : payment_details['order_id'],
+                    "amount" : float(payment_details['amount']/100),
+                    "zone" : obj.zone,
+                }
+                obj.is_paid = True
+                obj.tx_id =  payment_details['id']
+                obj.save()
+                return render(request,"core/success.html",context)
 
-            # Capture the payment
-            amount = int(payment_details['amount'])  # Amount should match
+            amount = int(payment_details['amount'])
             try:
                 client.payment.capture(payment_id, amount)
-                return redirect("success_page")
+                
+                print("Payment captured.")
+                
+                context = {
+                    "id" : payment_details['id'],
+                    "order_id" : payment_details['order_id']
+                }
+                obj.is_paid = True
+                obj.tx_id =  payment_details['id']
+                obj.save()
+                return render(request,"core/success.html",context)
+                
             except Exception as e:
                 print("Capture failed:", e)
-                return render(request, 'paymentfail.html')
+                
+                return render(request, 'paymentfail.html',{"message":str(e)})
 
         except Exception as e:
             print("Unexpected error:", e)

@@ -133,11 +133,13 @@
             <h1>Payment Successful!</h1>
             <p class="message">Your registration has been completed successfully.</p>
             <div class="details">
-                <p>Transaction ID: #123456789</p>
-                <p>Amount Paid: $99.00</p>
+                <p>Transaction ID: #{{id}}</p>
+                <p>Register ID : {{reg_id}}</p>
+                <p>Amount Paid: ₹ {{amount}}</p>
+                <p>Zone : {{zone}} </p>
             </div>
             <div class="buttons">
-                <a href="#" class="btn secondary">Go Back</a>
+                <a href="{% url 'index' %}" class="btn secondary">Go Back</a>
             </div>
         </div>
     </div>

@@ -1,83 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-      .btn_container{
+{% extends "_.html" %}
+{% load static %}
+{% block main %}
+<style>
+    .btn_container {
         display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-      }
-      .pay-button {
-  width: 80%;
-  padding: 1rem 2rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: white;
-  background-color:  #2563eb;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
 
-.pay-button:hover {
-  background-color: #1d4ed8;
-  transform: translateY(-1px);
-}
+    .pay-button {
+        width: 80%;
+        padding: 1rem 2rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: white;
+        background-color: #2563eb;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
 
-.pay-button:active {
-  transform: translateY(0);
-}
+    .pay-button:hover {
+        background-color: #1d4ed8;
+        transform: translateY(-1px);
+    }
 
-.button-icon {
-  font-size: 1.25rem;
-  transition: transform 0.2s ease;
-}
+    .pay-button:active {
+        transform: translateY(0);
+    }
 
-.pay-button:hover .button-icon {
-  transform: translateX(4px);
-}
-    </style>
-</head>
-<body>
-    
+    .button-icon {
+        font-size: 1.25rem;
+        transition: transform 0.2s ease;
+    }
 
-    <div class="btn_container">
-        <button class="btn" id="pay-btn">PayNow</button>
-      </div>
+    .pay-button:hover .button-icon {
+        transform: translateX(4px);
+    }
+</style>
+<div class="btn_container">
+    <button class="btn" id="pay-btn">PayNow</button>
+</div>
 
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
     var options = {
-      
-      key: "{{ razorpay_key }}", 
-      amount: "{{ amount }}", 
-      currency: "{{ currency }}",
-      
-      name: "Tamilnadu Street Premier League", 
-      
-      order_id: "{{ razorpay_order_id }}", 
-      callback_url: "https://tspl.hattricksolution.in/paymenthandler",
-    };
-    
-    var rzp1 = new Razorpay(options);
-    
-    document.getElementById("pay-btn").onclick = function (e) {
-      rzp1.open();
-      e.preventDefault();
-    };
-  </script>
+        key: "{{ razorpay_key }}",
+        amount: "{{ amount }}",
+        currency: "{{ currency }}",
 
-</body>
-</html>
+        name: "Tamilnadu Street Premier League",
+
+        order_id: "{{ razorpay_order_id }}",
+        callback_url: "{{ callback_url }}",
+    };
+
+    var rzp1 = new Razorpay(options);
+
+    document.getElementById("pay-btn").onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+    };
+</script>
+{% endblock %}
