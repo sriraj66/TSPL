@@ -77,14 +77,15 @@ def payment_handler(request):
             # verify the payment signature.
             result = client.utility.verify_payment_signature(
                 params_dict)
+            
             if result is not None:
                 amount = 1 * 100  # Rs. 200
                 try:
-
+                    print(result)
                     client.payment.capture(payment_id, amount)
                     return redirect("success_page")
                 except Exception as e:
-                    print(e)
+                    print("ERROR : ",e)
                     # if there is an error while capturing payment.
                     return render(request, 'paymentfail.html')
             else:
