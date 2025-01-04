@@ -8,6 +8,7 @@ import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
+from .models import Setting
 
 
 client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
@@ -20,19 +21,54 @@ def index(request):
 
 @login_required
 def register_form(request):
+    try:
+        
+        config = Setting.objects.all()
+        config = config[0]
+    except Exception as e:
+        print(e)
+        warning(request,"No Form Is Avilable")
+        return redirect("index")    
     if PlayerRegistration.objects.filter(user=request.user).exists():
-        error(request, "You already registered")
-        return redirect('index')
+        obj = PlayerRegistration.objects.filter(user=request.user)[0]
+        if obj.is_paid:
+            error(request, "You already registered")    
+            return redirect('index')
+        else:
+            amount = config.amount * 100
+            order_currency = "INR"
+            order_receipt = f"rcpt_{obj.id}"[:40] 
+            
+            try:
+                razorpay_order = client.order.create({
+                    "amount": amount,
+                    "currency": order_currency,
+                    "receipt": order_receipt,
+                    "payment_capture": 1,
+                })
+            except razorpay.errors.BadRequestError as e:
+                error(request, f"Failed to create Razorpay order: {str(e)}")
+                return redirect("index")
 
+            context = {
+                "razorpay_order_id": razorpay_order["id"],
+                "razorpay_key": settings.RAZORPAY_KEY_ID,
+                "amount": amount,
+                "currency": order_currency,
+                "callback_url" : f"https://tspl.hattricksolution.in/paymenthandler/{obj.id}"
+            }
+            return render(request, 'core/payment.html', context)
+
+        
     if request.method == 'POST':
+        
         form = PlayerRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             player_registration = form.save(commit=False)
             player_registration.user = request.user
             player_registration.save()
 
-
-            amount = 1 * 100
+            amount = config.amount * 100
             order_currency = "INR"
             order_receipt = f"rcpt_{player_registration.id}"[:40]  # Ensuring max 40 chars
             
@@ -57,7 +93,7 @@ def register_form(request):
             return render(request, 'core/payment.html', context)
 
     else:
-        form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name()})
+        form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name(),"email": request.user.email})
 
     return render(request, "core/form.html", {"form": form})
 
@@ -67,8 +103,7 @@ def payment_handler(request,id):
     if request.method == "POST":
         try:
             obj = PlayerRegistration.objects.get(id=id)
-            
-            if not obj:
+            if obj is None:
                 return HttpResponseBadRequest()
             
             payment_id = request.POST.get('razorpay_payment_id', '')

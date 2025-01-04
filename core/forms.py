@@ -68,7 +68,6 @@ class RegisterForm(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'password1', 'password2']
 
 
-from django import forms
 from .models import PlayerRegistration
 
 class PlayerRegistrationForm(forms.ModelForm):
@@ -90,6 +89,7 @@ class PlayerRegistrationForm(forms.ModelForm):
             'pin_code',
             'address',
             'level',
+            'batting_arm',
             'bowling_arm',
             'role',
             'first_preference',
@@ -111,6 +111,7 @@ class PlayerRegistrationForm(forms.ModelForm):
             'gender': forms.Select(attrs={'class': 'form-control'}),
             'tshirt_size': forms.Select(attrs={'class': 'form-control'}),
             'level': forms.Select(attrs={'class': 'form-control'}),
+            'batting_arm': forms.Select(attrs={'class': 'form-control'}),
             'bowling_arm': forms.Select(attrs={'class': 'form-control'}),
             'role': forms.Select(attrs={'class': 'form-select'}),
             'first_preference': forms.Select(attrs={'class': 'form-control'}),
@@ -132,6 +133,7 @@ class PlayerRegistrationForm(forms.ModelForm):
             'pin_code': 'PIN Code',
             'address': 'Address',
             'level': 'Player Level',
+            'batting_arm': 'Batting Arm',
             'bowling_arm': 'Bowling Arm',
             'role': 'Bowling Pace',
             'first_preference': 'First Preference',

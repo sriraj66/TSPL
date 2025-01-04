@@ -1,74 +1,109 @@
-{% extends "_.html" %}
+{% extends '_.html' %}
 {% load static %}
 {% block main %}
+
 <style>
-    .btn_container {
+
+    #container-pay {
+        min-height: 70vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
+        font-family: system-ui, -apple-system, sans-serif;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .glass-container {
+        backdrop-filter: blur(16px);
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        transform: scale(1);
+        transition: transform 0.3s ease;
+    }
+
+    .glass-container:hover {
+        transform: scale(1.05);
     }
 
     .pay-button {
-        width: 80%;
-        padding: 1rem 2rem;
-        font-size: 1.125rem;
-        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: #2563eb;
         color: white;
-        background-color: #2563eb;
         border: none;
         border-radius: 0.5rem;
+        font-weight: 600;
         cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .pay-button:hover {
-        background-color: #1d4ed8;
-        transform: translateY(-1px);
+        background: #1d4ed8;
+        box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+    }
+    .glass-container p{
+        color: gray;
+        text-transform: capitalize;
+        margin-top: 20px;
     }
 
-    .pay-button:active {
-        transform: translateY(0);
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.7;
+        }
     }
 
-    .button-icon {
-        font-size: 1.25rem;
-        transition: transform 0.2s ease;
-    }
-
-    .pay-button:hover .button-icon {
-        transform: translateX(4px);
+    .credit-card-icon {
+        width: 20px;
+        height: 20px;
     }
 </style>
-<div class="btn_container">
-    <button class="btn" id="pay-btn">PayNow</button>
+
+<div id="container-pay">
+
+    <!-- Glass container -->
+    <div class="glass-container">
+        <button class="pay-button" id="pay-btn">
+            <svg class="credit-card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="14" x="2" y="5" rx="2" />
+                <line x1="2" x2="22" y1="10" y2="10" />
+            </svg>
+            Pay Now
+        </button>
+        <p>Don't Refresh the Page</p>
+    </div>
 </div>
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-    var options = {
-        key: "{{ razorpay_key }}",
-        amount: "{{ amount }}",
-        currency: "{{ currency }}",
 
-        name: "Tamilnadu Street Premier League",
 
-        order_id: "{{ razorpay_order_id }}",
-        callback_url: "{{ callback_url }}",
-    };
-
-    var rzp1 = new Razorpay(options);
-
-    document.getElementById("pay-btn").onclick = function (e) {
-        rzp1.open();
-        e.preventDefault();
-    };
-</script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            key: "{{ razorpay_key }}",
+            amount: "{{ amount }}",
+            currency: "{{ currency }}",
+            name: "Tamilnadu Street Premier League",
+            order_id: "{{ razorpay_order_id }}",
+            callback_url: "{{ callback_url }}",
+        };
+    
+        var rzp1 = new Razorpay(options);
+    
+        document.getElementById("pay-btn").onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+        };
+    </script>
 {% endblock %}
