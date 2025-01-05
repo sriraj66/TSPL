@@ -28,13 +28,21 @@ def register_form(request):
     except Exception as e:
         print(e)
         warning(request,"No Form Is Avilable")
-        return redirect("index")    
+        return redirect("index")
+    
     if PlayerRegistration.objects.filter(user=request.user).exists():
         obj = PlayerRegistration.objects.filter(user=request.user)[0]
         if obj.is_paid:
-            error(request, "You already registered")    
-            return redirect('index')
+            context = {
+                    "id" : obj.tx_id,
+                    "reg_id" : obj.user_id,
+                    "amount" : float(config.amount),
+                    "zone" : obj.zone,
+                }
+            success(request,"You Alredy Completed the Payment")
+            return render(request,"core/success.html",context)
         else:
+            success(request,"Complete the Pending Payment")
             amount = config.amount * 100
             order_currency = "INR"
             order_receipt = f"rcpt_{obj.id}"[:40] 
@@ -70,7 +78,7 @@ def register_form(request):
 
             amount = config.amount * 100
             order_currency = "INR"
-            order_receipt = f"rcpt_{player_registration.id}"[:40]  # Ensuring max 40 chars
+            order_receipt = f"rcpt_{player_registration.id}"[:40] 
             
             try:
                 razorpay_order = client.order.create({
@@ -88,7 +96,7 @@ def register_form(request):
                 "razorpay_key": settings.RAZORPAY_KEY_ID,
                 "amount": amount,
                 "currency": order_currency,
-                "callback_url" : f"https://tspl.hattricksolution.in/paymenthandler/{player_registration.id}"
+                "callback_url" : f"https://tntenniscricket.in/paymenthandler/{player_registration.id}"
             }
             return render(request, 'core/payment.html', context)
 
@@ -129,7 +137,7 @@ def payment_handler(request,id):
                 
                 context = {
                     "id" : payment_details['id'],
-                    "reg_id" : obj.id,
+                    "reg_id" : obj.user_id,
                     "order_id" : payment_details['order_id'],
                     "amount" : float(payment_details['amount']/100),
                     "zone" : obj.zone,
