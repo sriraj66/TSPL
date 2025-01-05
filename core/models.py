@@ -36,7 +36,7 @@ class PlayerRegistration(models.Model):
     father_name = models.CharField(max_length=100, verbose_name='Father’s Name')
     
     category = models.CharField(max_length=25, choices=REGISTRATION_CATEGORIES, verbose_name='Category')
-    age = models.PositiveIntegerField( default=2 , verbose_name='Player Age')
+    age = models.PositiveIntegerField( verbose_name='Player Age')
 
     dob = models.DateField(verbose_name='Date of Birth')
     gender = models.CharField(max_length=10, choices=GENDERS, verbose_name='Gender')
