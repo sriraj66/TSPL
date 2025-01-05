@@ -35,7 +35,7 @@ def register_form(request):
         if obj.is_paid:
             context = {
                     "id" : obj.tx_id,
-                    "reg_id" : obj.user_id,
+                    "reg_id" : obj.reg_id,
                     "amount" : float(config.amount),
                     "zone" : obj.zone,
                 }
@@ -137,7 +137,7 @@ def payment_handler(request,id):
                 
                 context = {
                     "id" : payment_details['id'],
-                    "reg_id" : obj.user_id,
+                    "reg_id" : obj.reg_id,
                     "order_id" : payment_details['order_id'],
                     "amount" : float(payment_details['amount']/100),
                     "zone" : obj.zone,

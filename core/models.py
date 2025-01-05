@@ -24,7 +24,7 @@ class PlayerRegistration(models.Model):
          default = uuid.uuid4, 
          editable = False) 
     
-    user_id = models.CharField(
+    reg_id = models.CharField(
         max_length=20,
         unique=True,
         editable=False,
@@ -83,21 +83,21 @@ import datetime
 
 @receiver(pre_save, sender=PlayerRegistration)
 def generate_user_id(sender, instance, **kwargs):
-    if not instance.user_id:  
+    if not instance.reg_id:  
         current_date = datetime.datetime.now()
         month = current_date.strftime('%m') 
         year = current_date.strftime('%y')
 
         last_record = (
-            sender.objects.filter(user_id__startswith=f"TSPL{month}{year}")
-            .order_by('-user_id')
+            sender.objects.filter(reg_id__startswith=f"TSPL{month}{year}")
+            .order_by('-reg_id')
             .first()
         )
 
         if last_record:
-            last_number = int(last_record.user_id.split(f"TSPL{month}{year}")[-1])
+            last_number = int(last_record.reg_id.split(f"TSPL{month}{year}")[-1])
             new_number = last_number + 1
         else:
             new_number = 1
 
-        instance.user_id = f"TSPL{month}{year}{new_number}"
+        instance.reg_id = f"TSPL{month}{year}{new_number}"
