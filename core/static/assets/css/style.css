@@ -310,7 +310,7 @@ textarea:focus {
 }
 
 .top-header {
-    background: rgb(15, 8, 104);;
+    background: #2d2d2e;
     padding: 10px 0px;
 }
 .top-header .top-header-left ul {
@@ -416,7 +416,7 @@ textarea:focus {
     padding: 0px 0px;
     width: 100%;
     z-index: 1020;
-    background: rgb(19, 11, 141);;
+    background: #3b3b3c;
     border-bottom: 1px solid #ffffff69;
 }
 .main-header .navbar-brand img {
@@ -450,7 +450,7 @@ textarea:focus {
 }
 .main-header .navbar .nav-link:hover,
 .main-header .navbar .nav-link.active {
-     color: #fd1d1d;
+     color: rgb(206, 209, 23);
 }
 .main-header .navbar .nav-item {
     padding-left: 35px;
@@ -1869,7 +1869,7 @@ textarea:focus {
         max-width: 98%;
     }
     .mobile-header {
-        background: rgb(19, 11, 141);;
+        background: #3b3b3c;
         width: 100%;
         z-index: 1200;
         padding: 5px 0px;
@@ -2010,7 +2010,7 @@ textarea:focus {
         max-width: 98%;
     }
     .mobile-header {
-        background: rgb(19, 11, 141);
+        background: #3b3b3c;
         width: 100%;
         z-index: 1200;
         padding: 5px 0px;
@@ -2148,7 +2148,7 @@ textarea:focus {
         max-width: 98%;
     }
     .mobile-header {
-        background: rgb(19, 11, 141);;
+        background: #3b3b3c;
         width: 100%;
         z-index: 1200;
         padding: 5px 0px;
@@ -2295,7 +2295,7 @@ textarea:focus {
 
 
 .offcanvas-header{
-    background: rgb(19, 11, 141);;
+    background: #3b3b3c;
 }
 .btn-close {
     background: transparent url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>") center/1em auto no-repeat;
