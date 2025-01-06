@@ -1,45 +1,27 @@
 REGISTRATION_CATEGORIES = [
-    ('district', 'District'),
-    ('state', 'State'),
-    ('national', 'National'),
+    ('Under 21', 'Under 21'),
+    ('21 and Above', '21 and Above'),
 ]
 
 GENDERS = [
     ('male', 'Male'),
     ('female', 'Female'),
-    ('other', 'Other'),
 ]
 
 TSHIRT_SIZES = [
-    ('S', 'Small'),
-    ('M', 'Medium'),
-    ('L', 'Large'),
+    ('S', 'S'),
+    ('M', 'M'),
+    ('L', 'L'),
+    ('XL', 'XL'),
+    ('XXL', 'XXL'),
+    ('XXXL', 'XXXL'),
 ]
 
-LEVELS = [
-    ('beginner', 'Beginner'),
-    ('intermediate', 'Intermediate'),
-    ('advanced', 'Advanced'),
-]
 
 ROLE = [
-    ("Right Hand Batsman", "Right Hand Batsman"),
-    ("Left Hand Batsman", "Left Hand Batsman"),
-    ("Opener", "Opener"),
-    ("Middle-Order Batsman", "Middle-Order Batsman"),
-    ("Lower-Order Batsman", "Lower-Order Batsman"),
-    ("Wicketkeeper Batsman", "Wicketkeeper"),
-    ("Right Hand Bowler", "Right Hand Bowler"),
-    ("Left Hand Bowler", "Left Hand Bowler"),
-    ("Fast Bowler", "Fast Bowler"),
-    ("Medium-Pace Bowler", "Medium-Pace Bowler"),
-    ("Spin Bowler", "Spin Bowler"),
-    ("All-Rounder", "All-Rounder"),
-    ("Opening Bowler", "Opening Bowler"),
-    ("Death Bowler", "Death Bowler"),
-    ("Part-Time Bowler", "Part-Time Bowler"),
-    ("Fielding Specialist", "Fielding Specialist"),
-    ("Power-Hitter", "Power-Hitter"),
+    ("BATTING","BATTING"),
+    ("BOWLLING","BOWLLING"),
+    ("ALL-ROUNDER","ALL-ROUNDER"),
 ]
 
 
@@ -48,20 +30,10 @@ BOWLING_ARMS = [
     ('right', 'Right'),
 ]
 
-BOWLING_PACES = [
-    ('fast', 'Fast'),
-    ('medium', 'Medium'),
-    ('spin', 'Spin'),
-]
 
 FIRST_PREFERENCES = [
     ('batting', 'Batting'),
     ('bowling', 'Bowling'),
-]
-
-CAPTAIN_EXPERIENCES = [
-    ('yes', 'Yes'),
-    ('no', 'No'),
 ]
 
 STATES = [
@@ -144,5 +116,6 @@ DISTRICT_ZONE_MAP = {
     'Namakkal': 'ZONE D',
     'Karur': 'ZONE D',
 }
+
 
 DISTRICT_CHOICES = [(district, district) for district in DISTRICT_ZONE_MAP.keys()]

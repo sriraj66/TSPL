@@ -72,6 +72,7 @@
             color: #555;
             margin: 10px 0;
             font-size: 14px;
+            text-align: start;
         }
 
         .buttons {
@@ -133,11 +134,13 @@
             <h1>Payment Successful!</h1>
             <p class="message">Your registration has been completed successfully.</p>
             <div class="details">
-                <p>Transaction ID: #123456789</p>
-                <p>Amount Paid: $99.00</p>
+                <p>Transaction ID: <b>#{{id}}</b></p>
+                <p>Register ID : <b>{{reg_id}}</b></p>
+                <p>Amount Paid: <b>₹ {{amount}}</b></p>
+                <p>Zone : <strong style="color: #4CAF50;" >{{zone}}</strong> </p>
             </div>
             <div class="buttons">
-                <a href="#" class="btn secondary">Go Back</a>
+                <a href="{% url 'index' %}" class="btn secondary">Go Back</a>
             </div>
         </div>
     </div>

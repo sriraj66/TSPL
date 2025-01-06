@@ -9,7 +9,7 @@ urlpatterns = [
     path("logout",views.user_logout,name='user_logout'),
     path("success",views.success_page,name="success_page"),
     # Payment
-    path("paymenthandler", views.payment_handler, name="payment_handler"),
+    path("paymenthandler/<str:id>", views.payment_handler, name="payment_handler"),
 ]
 
 

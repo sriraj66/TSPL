@@ -8,6 +8,7 @@ import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
+from .models import Setting
 
 
 client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
@@ -20,21 +21,31 @@ def index(request):
 
 @login_required
 def register_form(request):
+    try:
+        
+        config = Setting.objects.all()
+        config = config[0]
+    except Exception as e:
+        print(e)
+        warning(request,"No Form Is Avilable")
+        return redirect("index")
+    
     if PlayerRegistration.objects.filter(user=request.user).exists():
-        error(request, "You already registered")
-        return redirect('index')
-
-    if request.method == 'POST':
-        form = PlayerRegistrationForm(request.POST, request.FILES)
-        if form.is_valid():
-            player_registration = form.save(commit=False)
-            player_registration.user = request.user
-            player_registration.save()
-
-
-            amount = 1 * 100
+        obj = PlayerRegistration.objects.filter(user=request.user)[0]
+        if obj.is_paid:
+            context = {
+                    "id" : obj.tx_id,
+                    "reg_id" : obj.reg_id,
+                    "amount" : float(config.amount),
+                    "zone" : obj.zone,
+                }
+            success(request,"You Alredy Completed the Payment")
+            return render(request,"core/success.html",context)
+        else:
+            success(request,"Complete the Pending Payment")
+            amount = config.amount * 100
             order_currency = "INR"
-            order_receipt = f"rcpt_{player_registration.id}"[:40]  # Ensuring max 40 chars
+            order_receipt = f"rcpt_{obj.id}"[:40] 
             
             try:
                 razorpay_order = client.order.create({
@@ -51,20 +62,58 @@ def register_form(request):
                 "razorpay_order_id": razorpay_order["id"],
                 "razorpay_key": settings.RAZORPAY_KEY_ID,
                 "amount": amount,
-                "currency": order_currency
+                "currency": order_currency,
+                "callback_url" : f"https://tspl.hattricksolution.in/paymenthandler/{obj.id}"
+            }
+            return render(request, 'core/payment.html', context)
+
+        
+    if request.method == 'POST':
+        
+        form = PlayerRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            player_registration = form.save(commit=False)
+            player_registration.user = request.user
+            player_registration.save()
+
+            amount = config.amount * 100
+            order_currency = "INR"
+            order_receipt = f"rcpt_{player_registration.id}"[:40] 
+            
+            try:
+                razorpay_order = client.order.create({
+                    "amount": amount,
+                    "currency": order_currency,
+                    "receipt": order_receipt,
+                    "payment_capture": 1,
+                })
+            except razorpay.errors.BadRequestError as e:
+                error(request, f"Failed to create Razorpay order: {str(e)}")
+                return redirect("index")
+
+            context = {
+                "razorpay_order_id": razorpay_order["id"],
+                "razorpay_key": settings.RAZORPAY_KEY_ID,
+                "amount": amount,
+                "currency": order_currency,
+                "callback_url" : f"https://tntenniscricket.in/paymenthandler/{player_registration.id}"
             }
             return render(request, 'core/payment.html', context)
 
     else:
-        form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name()})
+        form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name(),"email": request.user.email})
 
     return render(request, "core/form.html", {"form": form})
 
 
 @csrf_exempt
-def payment_handler(request):
+def payment_handler(request,id):
     if request.method == "POST":
         try:
+            obj = PlayerRegistration.objects.get(id=id)
+            if obj is None:
+                return HttpResponseBadRequest()
+            
             payment_id = request.POST.get('razorpay_payment_id', '')
             razorpay_order_id = request.POST.get('razorpay_order_id', '')
             signature = request.POST.get('razorpay_signature', '')
@@ -75,27 +124,48 @@ def payment_handler(request):
                 'razorpay_signature': signature
             }
 
-            # Verify the payment signature
             try:
                 client.utility.verify_payment_signature(params_dict)
             except Exception as e:
                 print("Signature verification failed:", e)
-                return render(request, 'paymentfail.html')
+                return render(request, 'paymentfail.html',{"message":str(e)})
+                
 
-            # Fetch payment details
             payment_details = client.payment.fetch(payment_id)
             if payment_details['status'] == 'captured':
                 print("Payment already captured.")
-                return redirect("success_page")
+                
+                context = {
+                    "id" : payment_details['id'],
+                    "reg_id" : obj.reg_id,
+                    "order_id" : payment_details['order_id'],
+                    "amount" : float(payment_details['amount']/100),
+                    "zone" : obj.zone,
+                }
+                obj.is_paid = True
+                obj.tx_id =  payment_details['id']
+                obj.save()
+                return render(request,"core/success.html",context)
 
-            # Capture the payment
-            amount = int(payment_details['amount'])  # Amount should match
+            amount = int(payment_details['amount'])
             try:
                 client.payment.capture(payment_id, amount)
-                return redirect("success_page")
+                
+                print("Payment captured.")
+                
+                context = {
+                    "id" : payment_details['id'],
+                    "order_id" : payment_details['order_id']
+                }
+                obj.is_paid = True
+                obj.tx_id =  payment_details['id']
+                obj.save()
+                return render(request,"core/success.html",context)
+                
             except Exception as e:
                 print("Capture failed:", e)
-                return render(request, 'paymentfail.html')
+                
+                return render(request, 'paymentfail.html',{"message":str(e)})
 
         except Exception as e:
             print("Unexpected error:", e)
