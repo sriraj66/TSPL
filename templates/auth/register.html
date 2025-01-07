@@ -53,7 +53,8 @@
             letter-spacing: 1.3px;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
+            margin-top: -30px;
             padding-left: 8px;
         }
     
@@ -120,12 +121,9 @@
     
         /* Image Section */
         .register-form .imge {
-            background: rgb(102, 101, 101);;
             display: flex;
             justify-content: center;
-            border-radius: 10px;
             margin-bottom: 30px;
-            padding: 10px;
         }
     
         /* Error List Styling */
@@ -166,11 +164,11 @@
 <body class="form">
     <div class="container">
         <form class="register-form" method="post">
-            <h2 >Register</h2>
-
             <div class="imge">
                 <img src="{% static 'assets/images/logo.png' %}" style="width: 90px; height: 70px;">    
             </div>
+            <h2 >Register</h2>
+
             {% csrf_token %} {{form.as_p}}
 
 

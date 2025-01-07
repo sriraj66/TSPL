@@ -237,7 +237,7 @@ textarea:focus {
     display: inline-block;
     padding: 10px 20px;
     border: none;
-    background-image: linear-gradient(to right, red,blue);
+    background-color: rgb(22, 73, 168);
     color: #fff;
     font-size: 16px;
     text-transform: uppercase;
@@ -250,7 +250,7 @@ textarea:focus {
     cursor: pointer;
 }
 
-.fancy-button:before {
+/*.fancy-button:before {
     content: "";
     position: absolute;
     top: 0;
@@ -260,14 +260,14 @@ textarea:focus {
     background-color: rgba(255, 255, 255, 0.2);
     transform: skewX(-30deg);
     transition: left 0.3s ease-in-out;
-}
+}*/
 
 .fancy-button:hover {
     color: #fff;
 }
 
 .fancy-button:hover:before {
-    left: 100%;
+   color: #0a0957;
 }
 
 .fixed {
@@ -486,7 +486,7 @@ textarea:focus {
 
 .main-header .navbar .dropdown .dropdown-menu .dropdown-item:hover {
     color: #fff;
-     background: linear-gradient(270deg, #833ab4, #fd1d1d, #fcb045);
+     background: gray;
 }
 .main-header .navbar .dropdown:hover > ul.dropdown-menu {
     display: block !important;
@@ -514,7 +514,7 @@ textarea:focus {
 }
 
 .header-btn1{
-    background: linear-gradient(270deg, #833ab4, #fd1d1d, #fcb045);
+    background: rgb(248, 82, 22);
       font-size: 15px;
     color: #fff;
     padding:11px 20px;
@@ -526,7 +526,7 @@ textarea:focus {
     text-transform: uppercase;
 }
 .header-btn1:hover , .header-btn1:focus{
-     background: linear-gradient(270deg, #833ab4, #fd1d1d, #fcb045);
+     background: rgb(218, 71, 18);
     color: #fff;
 }
 
@@ -1308,7 +1308,7 @@ textarea:focus {
     line-height: 40px;
     text-align: center;
     display: inline-block;
-    background-image: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+    background: rgb(22, 73, 168);
     transition: all 300ms ease;
     -webkit-transition: all 300ms ease;
     -ms-transition: all 300ms ease;
@@ -1824,7 +1824,7 @@ textarea:focus {
     font-size: 14px;
     border: none;
     outline: none;
-    background: linear-gradient(270deg, #833ab4, #fd1d1d, #fcb045)  ;
+    background: rgb(22, 73, 168)  ;
     color: #fff;
     cursor: pointer;
     width: 50px;
@@ -1848,7 +1848,7 @@ textarea:focus {
 }
 
 #myBtn:hover {
-    background-image: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+    background: rgb(6, 38, 94);
 }
 
 @media (min-width: 2000px) {
