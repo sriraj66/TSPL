@@ -66,7 +66,8 @@ def register_form(request):
                 "razorpay_key": settings.RAZORPAY_KEY_ID,
                 "amount": amount,
                 "currency": order_currency,
-                "callback_url" : f"https://tspl.hattricksolution.in/paymenthandler/{obj.id}"
+                "callback_url" : f"https://tntenniscricket.in/paymenthandler/{obj.id}"
+
             }
             return render(request, 'core/payment.html', context)
 
