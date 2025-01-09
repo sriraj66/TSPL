@@ -1,3 +1,4 @@
+version: '3.8'
 
 networks:
   internal_network:
@@ -17,6 +18,8 @@ services:
       - .env
     depends_on:
       - db
+      - redis
+      - celery
 
   nginx:
     image: nginx:alpine
@@ -32,23 +35,20 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - app
-  
+
   db:
-      image: postgres:15-alpine
-      restart: always
-      networks:
-        - internal_network
-
-      volumes:
-        - pg_volume:/var/lib/postgresql/data # Mounted for persistent storage
-      
-      environment:
-        POSTGRES_USER: ${POSTGRES_USER}
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        POSTGRES_DB: ${POSTGRES_DB}
-
-      ports:
-        - "5432:5432"
+    image: postgres:15-alpine
+    restart: always
+    networks:
+      - internal_network
+    volumes:
+      - pg_volume:/var/lib/postgresql/data 
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
 
   db-adminer:
     image: adminer
@@ -56,7 +56,32 @@ services:
     ports:
       - "5433:8080"
 
+  redis:
+    image: redis:alpine
+    networks:
+      - internal_network
+    volumes:
+      - redis_volume:/data
+    ports:
+      - "6379"
+
+  celery:
+    image: celery:latest
+    networks:
+      - internal_network
+    command: celery -A backend worker --loglevel=info
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - .env
+    volumes:
+      - media_volume:/app/media
+      - static_volume:/app/static
+    restart: always
+
 volumes:
   static_volume:
   media_volume:
   pg_volume:
+  redis_volume:

@@ -30,6 +30,12 @@ BOWLING_ARMS = [
     ('right', 'Right'),
 ]
 
+OCCUPATION = [
+    ("student","Student"),
+    ("self-employed","Self Employed"),
+    ("business","Business"),
+    ("other","Others"),
+]
 
 FIRST_PREFERENCES = [
     ('batting', 'Batting'),

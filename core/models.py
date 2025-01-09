@@ -41,6 +41,7 @@ class PlayerRegistration(models.Model):
     dob = models.DateField(verbose_name='Date of Birth')
     gender = models.CharField(max_length=10, choices=GENDERS, verbose_name='Gender')
     tshirt_size = models.CharField(max_length=4, choices=TSHIRT_SIZES, verbose_name='T-Shirt Size')
+    occupation = models.CharField(max_length=14,choices=OCCUPATION,default=3,verbose_name="Player Occupation")
     mobile = models.CharField(max_length=10, verbose_name='Mobile Number')
     
     wathsapp_number = models.CharField(max_length=10, verbose_name='Wathsapp Number')

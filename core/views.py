@@ -9,13 +9,26 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
 from .models import Setting
+from django.conf import settings
 
+from .task import send_success_email
 
 client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
 
 def index(request):
-    context = {}
+    context = {
+        "id" : "1234",
+        "reg_id" : "34343",
+        "order_id" : '8737832873',
+        "amount" : float(1000/100),
+        "zone" : "INDIA",
+    }
+    
+    send_success_email.delay(subject="Registration Compleated",to="sriramrajaclg@gmail.com",context=context)
+
+    print("Message sent")
+    
     return render(request,"core/index.html",context)
 
 
@@ -155,16 +168,19 @@ def payment_handler(request,id):
                 
                 context = {
                     "id" : payment_details['id'],
-                    "order_id" : payment_details['order_id']
+                    "reg_id" : obj.reg_id,
+                    "order_id" : payment_details['order_id'],
+                    "amount" : float(payment_details['amount']/100),
+                    "zone" : obj.zone,
                 }
                 obj.is_paid = True
                 obj.tx_id =  payment_details['id']
                 obj.save()
+
                 return render(request,"core/success.html",context)
                 
             except Exception as e:
                 print("Capture failed:", e)
-                
                 return render(request, 'paymentfail.html',{"message":str(e)})
 
         except Exception as e:
@@ -188,7 +204,6 @@ def user_login(request):
             return redirect("index")
     else:
         form = LoginForm()
-        
     return render(request,"auth/login.html",{
         "form": form
     })
