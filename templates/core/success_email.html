@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -142,7 +143,7 @@
 <body>
     <div class="container">
         <div class="success-card">
-            <div class="success-icon" style="text-align: center !important;">✓</div>
+            <img class="success-icon" src="{% static 'assets/images/accept.png' %}" alt="">
             <h1>Registration Successful!</h1>
             <p class="message">Your registration has been completed successfully.</p>
             <div class="details">
