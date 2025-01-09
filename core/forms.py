@@ -101,7 +101,7 @@ class PlayerRegistrationForm(forms.ModelForm):
             'father_name': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-select'}),
             'age': forms.NumberInput(attrs={'class': 'form-control'}),
-            'occupation': forms.NumberInput(attrs={'class': 'form-select'}),
+            'occupation': forms.Select(attrs={'class': 'form-select'}),
             'gender': forms.Select(attrs={'class': 'form-select'}),
             'tshirt_size': forms.Select(attrs={'class': 'form-select'}),
             'mobile': forms.TextInput(attrs={'class': 'form-control'}),

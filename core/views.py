@@ -17,19 +17,8 @@ client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_S
 
 
 def index(request):
-    context = {
-        "id" : "1234",
-        "reg_id" : "34343",
-        "order_id" : '8737832873',
-        "amount" : float(1000/100),
-        "zone" : "INDIA",
-    }
-    
-    send_success_email.delay(subject="Registration Compleated",to="sriramrajaclg@gmail.com",context=context)
 
-    print("Message sent")
-    
-    return render(request,"core/index.html",context)
+    return render(request,"core/index.html")
 
 
 @login_required
@@ -52,6 +41,7 @@ def register_form(request):
                     "amount" : float(config.amount),
                     "zone" : obj.zone,
                 }
+            
             success(request,"You Alredy Completed the Payment")
             return render(request,"core/success.html",context)
         else:
@@ -158,6 +148,7 @@ def payment_handler(request,id):
                 obj.is_paid = True
                 obj.tx_id =  payment_details['id']
                 obj.save()
+                send_success_email(subject="Registration Completed", to=obj.user.email, context=context)
                 return render(request,"core/success.html",context)
 
             amount = int(payment_details['amount'])
@@ -176,7 +167,7 @@ def payment_handler(request,id):
                 obj.is_paid = True
                 obj.tx_id =  payment_details['id']
                 obj.save()
-
+                send_success_email(subject="Registration Completed", to=obj.user.email, context=context)
                 return render(request,"core/success.html",context)
                 
             except Exception as e:

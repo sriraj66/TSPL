@@ -52,7 +52,7 @@ class PlayerRegistration(models.Model):
     
     district = models.CharField(max_length=100,choices=DISTRICT_CHOICES, verbose_name='District')
     
-    zone = models.CharField(max_length=10, editable=False, verbose_name="ZONE",default="ZONE A")
+    zone = models.CharField(max_length=10, editable=False, verbose_name="ZONeE",default="ZONE A")
     
     pin_code = models.PositiveIntegerField(verbose_name='PIN Code')
     address = models.TextField(verbose_name='Address')
