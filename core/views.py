@@ -10,25 +10,39 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
 from .models import Setting
 from django.conf import settings
-
 from .task import send_success_email
+import logging
 
+logger = logging.getLogger('core')
+
+logger.info("Initing Payment Gateway")
 client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
-
+logger.info("Payment Gateway Inited")
 
 def index(request):
+    # context = {
+    #     "id" : 'dsad',
+    #     "reg_id" : "asdasd",
+    #     "order_id" : "dsdsd",
+    #     "amount" : "float(payment_details['amount']/100)",
+    #     "zone" : "obj.zone",
+    # }   
+    # send_success_email(subject="Registration Completed", to=request.user.email, context=context)
+
+    logger.info("Visiting Index Page")
     return render(request,"core/index.html")
 
 
 @login_required
 def register_form(request):
     try:
-        
         config = Setting.objects.all()
         config = config[0]
+        logger.info("Pending Payment Found")
     except Exception as e:
         print(e)
         warning(request,"No Form Is Avilable")
+        logger.warning("No Form is Avilable")
         return redirect("index")
     
     if PlayerRegistration.objects.filter(user=request.user).exists():
@@ -42,13 +56,14 @@ def register_form(request):
                 }
             
             success(request,"You Alredy Completed the Payment")
+            logger.info("Registration Compleated")
             return render(request,"core/success.html",context)
         else:
             success(request,"Complete the Pending Payment")
             amount = config.amount * 100
             order_currency = "INR"
             order_receipt = f"rcpt_{obj.id}"[:40] 
-            
+            logger.info("Payment Initiated")
             try:
                 razorpay_order = client.order.create({
                     "amount": amount,
@@ -68,6 +83,7 @@ def register_form(request):
                 "callback_url" : f"https://tntenniscricket.in/paymenthandler/{obj.id}"
 
             }
+            logger.info("Redirecting to The payment Page")
             return render(request, 'core/payment.html', context)
 
         
@@ -82,6 +98,7 @@ def register_form(request):
             amount = config.amount * 100
             order_currency = "INR"
             order_receipt = f"rcpt_{player_registration.id}"[:40] 
+            logger.info("Payment Initiated")
             
             try:
                 razorpay_order = client.order.create({
@@ -92,6 +109,7 @@ def register_form(request):
                 })
             except razorpay.errors.BadRequestError as e:
                 error(request, f"Failed to create Razorpay order: {str(e)}")
+                logger.error("Faild to Compleate Payment While Creating order : "+ str(e) )
                 return redirect("index")
 
             context = {
@@ -101,11 +119,13 @@ def register_form(request):
                 "currency": order_currency,
                 "callback_url" : f"https://tntenniscricket.in/paymenthandler/{player_registration.id}"
             }
+            logger.info("Redirecting to The payment Page")
+            
             return render(request, 'core/payment.html', context)
 
     else:
         form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name(),"email": request.user.email})
-
+        logger.info("Form Generated")
     return render(request, "core/form.html", {"form": form})
 
 
@@ -115,6 +135,7 @@ def payment_handler(request,id):
         try:
             obj = PlayerRegistration.objects.get(id=id)
             if obj is None:
+                logger.error("Invalid Payment Request")
                 return HttpResponseBadRequest()
             
             payment_id = request.POST.get('razorpay_payment_id', '')
@@ -131,12 +152,14 @@ def payment_handler(request,id):
                 client.utility.verify_payment_signature(params_dict)
             except Exception as e:
                 print("Signature verification failed:", e)
+                logger.error(f"Signature verification failed: {e}")
                 return render(request, 'paymentfail.html',{"message":str(e)})
                 
 
             payment_details = client.payment.fetch(payment_id)
             if payment_details['status'] == 'captured':
                 print("Payment already captured.")
+                logger.info("Payment Allredy Captured")
                 
                 context = {
                     "id" : payment_details['id'],
@@ -148,7 +171,10 @@ def payment_handler(request,id):
                 obj.is_paid = True
                 obj.tx_id =  payment_details['id']
                 obj.save()
+                logger.info("Sending Email to "+obj.user.email)
                 send_success_email(subject="Registration Completed", to=obj.user.email, context=context)
+                logger.info("Email Sended statrtd Redirection")
+
                 return render(request,"core/success.html",context)
 
             amount = int(payment_details['amount'])
@@ -156,6 +182,7 @@ def payment_handler(request,id):
                 client.payment.capture(payment_id, amount)
                 
                 print("Payment captured.")
+                logger.info("Payment Captured")
                 
                 context = {
                     "id" : payment_details['id'],
@@ -167,17 +194,24 @@ def payment_handler(request,id):
                 obj.is_paid = True
                 obj.tx_id =  payment_details['id']
                 obj.save()
+                logger.info("Sending Email to "+obj.user.email)
+
                 send_success_email(subject="Registration Completed", to=obj.user.email, context=context)
+                logger.info("Email Sended statrtd Redirection")
+
                 return render(request,"core/success.html",context)
                 
             except Exception as e:
                 print("Capture failed:", e)
+                logger.error("Capture Failed {e}")
                 return render(request, 'paymentfail.html',{"message":str(e)})
 
         except Exception as e:
             print("Unexpected error:", e)
+            logger.error(f"Unexpected Error {e}")
             return HttpResponseBadRequest()
     else:
+        logger.error("Invalid Request")
         return HttpResponseBadRequest()
 
     
@@ -192,6 +226,7 @@ def user_login(request):
             user = form.get_user()
             login(request,user)
             success(request,f"Welcome back {user.get_full_name()} !!")
+            logger.info("User Loged In")
             return redirect("index")
     else:
         form = LoginForm()
@@ -209,6 +244,7 @@ def user_register(request):
             user.save()  
             login(request, user)
             success(request,f"Welcome {user.get_full_name()}")
+            logger.info("User Loged In")
             return redirect("index")
     else:
         form = RegisterForm()
@@ -220,6 +256,7 @@ def user_register(request):
 def user_logout(request):
     if request.POST:
         logout(request)
+        logger.info("User Loged out")
     return redirect("user_login")
 
 
