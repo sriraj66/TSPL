@@ -13,8 +13,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# DEBUG = os.getenv("SECRET_KEY")== "0"
-DEBUG = True
+DEBUG = os.getenv("SECRET_KEY")== "0"
+# DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -147,7 +147,7 @@ RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
 
 # Email Configuration
 
-if DEBUG:
+if not DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
