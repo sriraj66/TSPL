@@ -17,7 +17,6 @@ client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_S
 
 
 def index(request):
-
     return render(request,"core/index.html")
 
 
