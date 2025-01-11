@@ -35,6 +35,6 @@ urlpatterns+=[
 
 # SEO
 urlpatterns+=[
-    path("robot.txt",views.robot),
+    path("robots.txt",views.robot),
     path("sitemap.xml",views.sitemap,name='sitemap'),
 ]
