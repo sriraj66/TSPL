@@ -5,10 +5,10 @@ from django.conf import settings
 import logging
 
 email_executor = concurrent.futures.ThreadPoolExecutor(max_workers=20)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('core')
 
 def send_success_email(subject, to, context):
-    print("Submitting email task to thread pool")
+    logger.info("Submitting email task to thread pool")
 
     def send_email():
         try:
@@ -20,9 +20,9 @@ def send_success_email(subject, to, context):
             message.attach_alternative(html_content, "text/html")
 
             message.send()
-            print(f"Email sent to {to}")
+            logger.info(f"Email sent to {to}")
         except Exception as e:
             logger.error(f"Error sending email to {to}: {e}")
-            print(f"Error sending email to {to}: {e}")
+            # print(f"Error sending email to {to}: {e}")
 
     email_executor.submit(send_email)

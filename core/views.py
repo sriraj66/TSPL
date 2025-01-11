@@ -45,6 +45,7 @@ def register_form(request):
         logger.warning("No Form is Avilable")
         return redirect("index")
     
+    
     if PlayerRegistration.objects.filter(user=request.user).exists():
         obj = PlayerRegistration.objects.filter(user=request.user)[0]
         if obj.is_paid:
@@ -126,7 +127,7 @@ def register_form(request):
     else:
         form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name(),"email": request.user.email})
         logger.info("Form Generated")
-    return render(request, "core/form.html", {"form": form})
+    return render(request, "core/form.html", {"form": form, "config":config})
 
 
 @csrf_exempt
@@ -308,3 +309,24 @@ def b4(request):
 
 def b5(request):
     return render(request,"core/blog/who-can-register.html")
+
+# SEO
+from django.template.loader import get_template
+
+def robot(request):
+    logger.warning("Visited Robot.txt")
+    
+    # Load robots.txt from the templates folder
+    template = get_template('robots.txt')
+    robots_content = template.render()
+    
+    return HttpResponse(robots_content, content_type="text/plain")
+
+def sitemap(request):
+    logger.warning("Visited sitemap.xml")
+    
+    # Load sitemap.xml from the templates folder
+    template = get_template('sitemap.xml')
+    sitemap_content = template.render()
+    
+    return HttpResponse(sitemap_content, content_type="application/xml")

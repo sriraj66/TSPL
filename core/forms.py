@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
-        label="Username or Email",
+        label="Email",
         max_length=150,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Enter your Username',
+            'placeholder': 'Enter your Email',
             'required': "true",
             "autocomplete": "off"
         })
@@ -25,7 +25,7 @@ class LoginForm(AuthenticationForm):
 
 class RegisterForm(UserCreationForm):
     username = forms.EmailField(
-        label="Username or Email ",
+        label="Email ",
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
             'placeholder': 'ie , ...@gmail.com'
