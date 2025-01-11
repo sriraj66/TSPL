@@ -13,6 +13,7 @@ services:
     volumes:
       - media_volume:/app/media
       - static_volume:/app/static
+      - ./logs:/app/logs
     env_file:
       - .env
     depends_on:
