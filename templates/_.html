@@ -55,7 +55,21 @@
     }
     
     </script>
-        
+    
+    <!-- Preload Favicon -->
+    <link rel="preload" href="{% static 'assets/images/favicon.ico' %}" as="image" type="image/x-icon">
+
+    <!-- Preload CSS Files -->
+    <link rel="preload" href="{% static 'assets/css/bootstrap-icons.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/min.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/owl.carousel.min.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/bootstrap.min.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/flaticon.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/animate.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/fancybox.min.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/meanmenu.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/owl.theme.default.min.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/style.css' %}" as="style">
 
     <title>Tamizhan Street Premier League (TSPL) - Empowering Tamil Nadu Tennisball Cricket</title>
     <meta charset="UTF-8" />
@@ -78,17 +92,20 @@
     <meta name="twitter:image" content="https://tntenniscricket.in{% static 'assets/images/logo.png' %}">
     <meta name="twitter:url" content="https://x.com/tntenniscricket" >
 
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap-icons.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/owl.carousel.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/flaticon.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/animate.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/fancybox.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/meanmenu.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/owl.theme.default.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
+    
+
+    <!-- Actual CSS Links -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RDG53F2TG"></script>
