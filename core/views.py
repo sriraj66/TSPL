@@ -41,7 +41,7 @@ def register_form(request):
 
         logger.info("Setting Found")
         if config.accept_response == False:
-            success("The Registration is Not yet Started.")
+            success(request,"The Registration is Not yet Started.")
             logger.warning(f"The Form {config.amount} - Response : {config.accept_response} is not Started")
             return redirect("index")
         
