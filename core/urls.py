@@ -22,8 +22,8 @@ urlpatterns+=[
     path('commite-team', views.commitie, name='commitie'),
     path('blog/gallery', views.gallery, name='gallery'),
     path('blog/vgallery', views.vgallery, name='vgallery'),
-    path('blog/privacy-policy', views.pp, name='privacy_policy'),
-    path('blog/terms-and-conditions', views.tc, name='terms_conditions'),
+    path('privacy-policy', views.pp, name='privacy_policy'),
+    path('terms-and-conditions', views.tc, name='terms_conditions'),
     
     # Individual Blog Posts
     path('blog/ispl-player-revealed/', views.b1, name='ispl_player_revealed'),
