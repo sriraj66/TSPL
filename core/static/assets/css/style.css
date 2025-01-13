@@ -448,8 +448,8 @@ textarea:focus {
     margin-top: 7px;
     vertical-align: baseline;
 }
-.main-header .navbar .nav-link:hover,
-.main-header .navbar .nav-link.active {
+.main-header .navbar .nav-link:hover
+/*.main-header .navbar .nav-link.active*/ {
      color: rgb(206, 209, 23);
 }
 .main-header .navbar .nav-item {
