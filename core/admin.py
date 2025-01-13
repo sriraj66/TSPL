@@ -7,7 +7,7 @@ class PlayerRegistrationResource(resources.ModelResource):
     class Meta:
         model = PlayerRegistration
         fields = (
-            'id', 'user__username', 'date_application', 'player_name', 'father_name',
+            'id', 'reg_id','user__username', 'date_application', 'player_name', 'father_name',
             'mother_name', 'dob', 'gender', 'tshirt_size', 'mobile', 'emergency_mobile', 'email', 'adhar_card',
             'player_image', 'district', 'zone', 'pin_code', 'address', 'level', 'bowling_arm', 'bowling_pace',
             'first_preference', 'captain_exp', 'is_paid', 'tx_id', 'created'
@@ -17,15 +17,14 @@ class PlayerRegistrationResource(resources.ModelResource):
         import_id_fields = ['id']
 
 class PlayerRegistrationAdmin(ExportMixin, admin.ModelAdmin):
-    list_display = ('player_name', 'district', 'zone', 'is_paid', 'created')  # Customize display
-    search_fields = (
-        'user__username', 'player_name', 'father_name', 'mother_name', 'mobile',
+    list_display = ('reg_id','player_name', 'district', 'zone', 'is_paid', 'created') 
+    search_fields = ('reg_id','user__username', 'player_name', 'father_name', 'mother_name', 'mobile',
         'emergency_mobile', 'email', 'adhar_card', 'district', 'pin_code', 'address', 'level', 'bowling_arm',
         'bowling_pace', 'first_preference', 'tx_id'
     )
-    list_filter = ('zone', 'is_paid', 'gender', 'district') 
+    list_filter = ('reg_id','zone', 'is_paid', 'gender', 'district') 
     ordering = ('-created',) 
-    readonly_fields = ('zone', 'created') 
+    readonly_fields = ('reg_id','zone', 'created') 
 
     resource_class = PlayerRegistrationResource  
     

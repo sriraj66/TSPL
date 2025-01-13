@@ -27,7 +27,7 @@ class PlayerRegistration(models.Model):
         max_length=20,
         unique=True,
         editable=False,
-        verbose_name="User ID"
+        verbose_name="Register ID"
     )
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='User')
@@ -51,7 +51,7 @@ class PlayerRegistration(models.Model):
     
     district = models.CharField(max_length=100,choices=DISTRICT_CHOICES, verbose_name='District')
     
-    zone = models.CharField(max_length=10, editable=False, verbose_name="ZONeE",default="ZONE A")
+    zone = models.CharField(max_length=10, editable=False, verbose_name="Zone",default="ZONE A")
     
     pin_code = models.PositiveIntegerField(verbose_name='PIN Code')
     address = models.TextField(verbose_name='Address')
