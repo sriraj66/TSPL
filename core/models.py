@@ -9,7 +9,6 @@ class Setting(models.Model):
     
     amount = models.PositiveIntegerField(default=0,verbose_name="Registration Amount")
     accept_response = models.BooleanField(default=False,verbose_name="Accept Response")
-    
     class Meta:
         ordering = ['-id']
     
