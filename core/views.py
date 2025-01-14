@@ -36,105 +36,109 @@ def index(request):
 @login_required
 def register_form(request):
     try:
-        config = Setting.objects.all()
-        config = config[0]
+        try:
+            config = Setting.objects.all()
+            config = config[0]
 
-        logger.info("Setting Found")
-        if config.accept_response == False:
-            success(request,"The Registration is Not yet Started.")
-            logger.warning(f"The Form {config.amount} - Response : {config.accept_response} is not Started")
+            logger.info("Setting Found")
+            if config.accept_response == False:
+                success(request,"The Registration is Not yet Started.")
+                logger.warning(f"The Form {config.amount} - Response : {config.accept_response} is not Started")
+                return redirect("index")
+            
+        except Exception as e:
+            print(e)
+            warning(request,"No Form Is Avilable")
+            logger.warning("No Form is Avilable")
             return redirect("index")
         
-    except Exception as e:
-        print(e)
-        warning(request,"No Form Is Avilable")
-        logger.warning("No Form is Avilable")
-        return redirect("index")
-    
-    
-    if PlayerRegistration.objects.filter(user=request.user).exists():
-        obj = PlayerRegistration.objects.filter(user=request.user)[0]
-        if obj.is_paid:
-            context = {
-                    "id" : obj.tx_id,
-                    "reg_id" : obj.reg_id,
-                    "amount" : float(config.amount),
-                    "zone" : obj.zone,
+        
+        if PlayerRegistration.objects.filter(user=request.user).exists():
+            obj = PlayerRegistration.objects.filter(user=request.user)[0]
+            if obj.is_paid:
+                context = {
+                        "id" : obj.tx_id,
+                        "reg_id" : obj.reg_id,
+                        "amount" : float(config.amount),
+                        "zone" : obj.zone,
+                    }
+                
+                success(request,"You Alredy Completed the Payment")
+                logger.info("Registration Compleated")
+                return render(request,"core/success.html",context)
+            else:
+                success(request,"Complete the Pending Payment")
+                amount = config.amount * 100
+                order_currency = "INR"
+                order_receipt = f"rcpt_{obj.id}"[:40] 
+                logger.info("Payment Initiated")
+                try:
+                    razorpay_order = client.order.create({
+                        "amount": amount,
+                        "currency": order_currency,
+                        "receipt": order_receipt,
+                        "payment_capture": 1,
+                    })
+                except razorpay.errors.BadRequestError as e:
+                    error(request, f"Failed to create Razorpay order: {str(e)}")
+                    return redirect("index")
+
+                context = {
+                    "razorpay_order_id": razorpay_order["id"],
+                    "razorpay_key": settings.RAZORPAY_KEY_ID,
+                    "amount": amount,
+                    "currency": order_currency,
+                    "callback_url" : f"https://tntenniscricket.in/paymenthandler/{obj.id}"
+
                 }
+                logger.info("Redirecting to The payment Page")
+                return render(request, 'core/payment.html', context)
+
             
-            success(request,"You Alredy Completed the Payment")
-            logger.info("Registration Compleated")
-            return render(request,"core/success.html",context)
+        if request.method == 'POST':
+            
+            form = PlayerRegistrationForm(request.POST, request.FILES)
+            if form.is_valid():
+                player_registration = form.save(commit=False)
+                player_registration.user = request.user
+                player_registration.save()
+
+                amount = config.amount * 100
+                order_currency = "INR"
+                order_receipt = f"rcpt_{player_registration.id}"[:40] 
+                logger.info("Payment Initiated")
+                
+                try:
+                    razorpay_order = client.order.create({
+                        "amount": amount,
+                        "currency": order_currency,
+                        "receipt": order_receipt,
+                        "payment_capture": 1,
+                    })
+                except razorpay.errors.BadRequestError as e:
+                    error(request, f"Failed to create Razorpay order: {str(e)}")
+                    logger.error("Faild to Compleate Payment While Creating order : "+ str(e) )
+                    return redirect("index")
+
+                context = {
+                    "razorpay_order_id": razorpay_order["id"],
+                    "razorpay_key": settings.RAZORPAY_KEY_ID,
+                    "amount": amount,
+                    "currency": order_currency,
+                    "callback_url" : f"https://tntenniscricket.in/paymenthandler/{player_registration.id}"
+                }
+                logger.info("Redirecting to The payment Page")
+                
+                return render(request, 'core/payment.html', context)
+
         else:
-            success(request,"Complete the Pending Payment")
-            amount = config.amount * 100
-            order_currency = "INR"
-            order_receipt = f"rcpt_{obj.id}"[:40] 
-            logger.info("Payment Initiated")
-            try:
-                razorpay_order = client.order.create({
-                    "amount": amount,
-                    "currency": order_currency,
-                    "receipt": order_receipt,
-                    "payment_capture": 1,
-                })
-            except razorpay.errors.BadRequestError as e:
-                error(request, f"Failed to create Razorpay order: {str(e)}")
-                return redirect("index")
-
-            context = {
-                "razorpay_order_id": razorpay_order["id"],
-                "razorpay_key": settings.RAZORPAY_KEY_ID,
-                "amount": amount,
-                "currency": order_currency,
-                "callback_url" : f"https://tntenniscricket.in/paymenthandler/{obj.id}"
-
-            }
-            logger.info("Redirecting to The payment Page")
-            return render(request, 'core/payment.html', context)
-
-        
-    if request.method == 'POST':
-        
-        form = PlayerRegistrationForm(request.POST, request.FILES)
-        if form.is_valid():
-            player_registration = form.save(commit=False)
-            player_registration.user = request.user
-            player_registration.save()
-
-            amount = config.amount * 100
-            order_currency = "INR"
-            order_receipt = f"rcpt_{player_registration.id}"[:40] 
-            logger.info("Payment Initiated")
-            
-            try:
-                razorpay_order = client.order.create({
-                    "amount": amount,
-                    "currency": order_currency,
-                    "receipt": order_receipt,
-                    "payment_capture": 1,
-                })
-            except razorpay.errors.BadRequestError as e:
-                error(request, f"Failed to create Razorpay order: {str(e)}")
-                logger.error("Faild to Compleate Payment While Creating order : "+ str(e) )
-                return redirect("index")
-
-            context = {
-                "razorpay_order_id": razorpay_order["id"],
-                "razorpay_key": settings.RAZORPAY_KEY_ID,
-                "amount": amount,
-                "currency": order_currency,
-                "callback_url" : f"https://tntenniscricket.in/paymenthandler/{player_registration.id}"
-            }
-            logger.info("Redirecting to The payment Page")
-            
-            return render(request, 'core/payment.html', context)
-
-    else:
-        form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name(),"email": request.user.email})
-        logger.info("Form Generated")
-    return render(request, "core/form.html", {"form": form, "config":config})
-
+            form = PlayerRegistrationForm(initial={'player_name': request.user.get_full_name(),"email": request.user.email})
+            logger.info("Form Generated")
+        return render(request, "core/form.html", {"form": form, "config":config})
+    except Exception as e:
+        logger.error("Error In The Form : ",e)
+        print(f"Error In the Form {e}")
+        return redirect("index")
 
 @csrf_exempt
 def payment_handler(request,id):
