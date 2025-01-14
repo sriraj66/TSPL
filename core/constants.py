@@ -102,6 +102,8 @@ DISTRICT_ZONE_MAP = {
     'Mayiladuthurai': 'ZONE B',
     'Perambalur': 'ZONE B',
     'Cuddalore': 'ZONE B',
+    'Pondicherry' : "ZONE B",
+    'Karaikkal' : "ZONE B",
     'Chennai': 'ZONE C',
     'Tiruvallur': 'ZONE C',
     'Kanchipuram': 'ZONE C',
