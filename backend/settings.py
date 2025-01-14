@@ -136,7 +136,7 @@ LOGIN_REDIRECT_URL = 'index'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0:8000', 'http://127.0.0.1:8000','http://tntenniscricket.in',"https://tntenniscricket.in"]
+CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0:8000', 'http://127.0.0.1:8000','http://tntenniscricket.in',"https://tntenniscricket.in","https://www.tntenniscricket.in","http://www.tntenniscricket.in"]
 
 
 
