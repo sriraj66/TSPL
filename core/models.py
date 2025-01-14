@@ -90,18 +90,8 @@ def generate_user_id(sender, instance, **kwargs):
         current_date = datetime.datetime.now()
         month = current_date.strftime('%m') 
         year = current_date.strftime('%y')
-
-        last_record = (
-            sender.objects.filter(reg_id__startswith=f"TSPL{month}{year}")
-            .order_by('-reg_id')
-            .first()
-        )
-
-        if last_record:
-            # last_number = int(last_record.reg_id.split(f"TSPL{month}{year}")[-1])
-            last_number = len(sender.objects.all())
-            new_number = last_number + 1
-        else:
-            new_number = 1
-
+        # last_number = int(last_record.reg_id.split(f"TSPL{month}{year}")[-1])
+        last_number = len(sender.objects.all())
+        new_number = last_number + 2
+        
         instance.reg_id = f"TSPL{month}{year}{new_number}"
