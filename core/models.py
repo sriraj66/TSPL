@@ -92,6 +92,6 @@ def generate_user_id(sender, instance, **kwargs):
         year = current_date.strftime('%y')
         # last_number = int(last_record.reg_id.split(f"TSPL{month}{year}")[-1])
         last_number = len(sender.objects.all())
-        new_number = last_number + 1
+        new_number = last_number + 2
         
         instance.reg_id = f"TSPL{month}{year}{new_number}"
