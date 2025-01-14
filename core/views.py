@@ -136,7 +136,7 @@ def register_form(request):
             logger.info("Form Generated")
         return render(request, "core/form.html", {"form": form, "config":config})
     except Exception as e:
-        logger.error("Error In The Form : ",e)
+        logger.error(f"Error In The Form : {e}")
         print(f"Error In the Form {e}")
         return redirect("index")
 

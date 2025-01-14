@@ -81,9 +81,12 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 import datetime
 
+
+
 @receiver(pre_save, sender=PlayerRegistration)
 def generate_user_id(sender, instance, **kwargs):
     if not instance.reg_id:  
+        print("")
         current_date = datetime.datetime.now()
         month = current_date.strftime('%m') 
         year = current_date.strftime('%y')
@@ -95,7 +98,8 @@ def generate_user_id(sender, instance, **kwargs):
         )
 
         if last_record:
-            last_number = int(last_record.reg_id.split(f"TSPL{month}{year}")[-1])
+            # last_number = int(last_record.reg_id.split(f"TSPL{month}{year}")[-1])
+            last_number = len(sender.objects.all())
             new_number = last_number + 1
         else:
             new_number = 1
