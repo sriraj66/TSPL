@@ -21,7 +21,7 @@ class PlayerRegistrationAdmin(ExportMixin, admin.ModelAdmin):
     search_fields = ('reg_id','user__username', 'player_name', 'mobile',
         'email', 'adhar_card', 'district','tx_id'
     )
-    list_filter = ('reg_id','zone', 'is_paid', 'gender', 'district') 
+    list_filter = ('zone', 'is_paid', 'gender', 'district') 
     ordering = ('-created',) 
     readonly_fields = ('reg_id','zone', 'created') 
 
