@@ -271,6 +271,10 @@ def user_logout(request):
     return redirect("user_login")
 
 
+@login_required
+def points_table(request):
+    return render(request,'core/pointstable.html')
+
 def success_page(request):
     return render(request,'core/success.html')
 
@@ -340,3 +344,4 @@ def sitemap(request):
     sitemap_content = template.render()
     
     return HttpResponse(sitemap_content, content_type="application/xml")
+
