@@ -40,9 +40,8 @@ def register_form(request):
             config = Setting.objects.all()
             config = config[0]
 
-            logger.info("Setting Found")
             if config.accept_response == False:
-                success(request,"The Registration is Not yet Started.")
+                warning(request,"This form is no Longer Accepting Response")
                 logger.warning(f"The Form {config.amount} - Response : {config.accept_response} is not Started")
                 return redirect("index")
             
