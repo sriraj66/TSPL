@@ -270,7 +270,6 @@ def user_logout(request):
     return redirect("user_login")
 
 
-@login_required
 def points_table(request):
     return render(request,'core/pointstable.html')
 
