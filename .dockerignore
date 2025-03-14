@@ -1,7 +1,7 @@
 .venv
 .env
-**/migrations/**
-!**/migrations/__init__.py
+# **/migrations/**
+# !**/migrations/__init__.py
 media
 __pycache__/
 

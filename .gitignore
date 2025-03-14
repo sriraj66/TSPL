@@ -90,8 +90,8 @@ __pypackages__/
 .history
 
 # Exclude migrations folder
-**/migrations/**
-!**/migrations/__init__.py
+# **/migrations/**
+# !**/migrations/__init__.py
 
 # Environments
 .env
