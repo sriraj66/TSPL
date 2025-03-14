@@ -4,6 +4,7 @@ chmod +x ./wait_for_db.sh
 ./wait_for_db.sh db:5432 -t 15
 
 python3 manage.py migrate --no-input
+python3 manage.py makemigrations core --no-input
 python3 manage.py makemigrations --no-input
 python3 manage.py migrate --no-input
 python3 manage.py collectstatic --no-input
