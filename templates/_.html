@@ -240,7 +240,9 @@
                             <div class="d-flex justify-content-center">
                                 <a href="{% url 'points_table' %}" class="btn header-btn">Points table</a>
                                 {% if user.is_authenticated %}
-                                <a href="{% url 'register_form' %}" class="btn header-btn">Online Registration</a>
+                                <!-- <a href="{% url 'register_form' %}" class="btn header-btn">Online Registration</a> -->
+                                <a href="{% url 'player_result' %}" class="btn header-btn">View Result</a>
+
                                 <form action="{% url 'user_logout' %}" method="post">
                                     {% csrf_token %}
                                     <button class="btn header-btn1 me-2" >logout</button>
@@ -301,7 +303,8 @@
                     <div class="d-flex ms-4 gap-2">
                         <a href="{% url 'points_table' %}" class="btn header-btn">Points Table</a>
                         {% if user.is_authenticated %}
-                        <a href="{% url 'register_form' %}" class="btn header-btn">Online Registration</a>
+                        <a href="{% url 'player_result' %}" class="btn header-btn">View Result</a>
+                        <!-- <a href="{% url 'register_form' %}" class="btn header-btn">Online Registration</a> -->
                         <form action="{% url 'user_logout' %}" method="post">
                             {% csrf_token %}
                             <button class="btn header-btn1 me-2" >logout</button>

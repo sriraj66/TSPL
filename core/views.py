@@ -29,8 +29,14 @@ def index(request):
     # }   
     # send_success_email(subject="Registration Completed", to=request.user.email, context=context)
 
-    logger.info("Visiting Index Page")
-    return render(request,"core/index.html")
+    # logger.info("Visiting Index Page")
+    hasResult = False
+    if PlayerRegistration.objects.filter(user=request.user).exists():
+        obj = PlayerRegistration.objects.filter(user=request.user)[0]
+        if obj.is_paid:
+            hasResult = True
+
+    return render(request,"core/index.html",{"result":hasResult})
 
 
 @login_required
@@ -283,6 +289,10 @@ def player_result(request):
     if PlayerRegistration.objects.filter(user=request.user).exists():
         obj = PlayerRegistration.objects.filter(user=request.user)[0]
         
+        if not obj.is_paid:
+            warning("Payment Not Compleated")
+            return redirect("index")
+
         if obj.is_selected:
             return render(request,'selected.html',{"data":obj})
         else:
