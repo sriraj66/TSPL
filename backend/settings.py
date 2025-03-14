@@ -160,6 +160,9 @@ EMAIL_HOST_USER = os.getenv("EMAIL")
 EMAIL_HOST_PASSWORD = os.getenv("PASSWORD") 
 
 
+X_FRAME_OPTIONS = 'ALLOWALL'  # To allow all
+# OR
+X_FRAME_OPTIONS = 'SAMEORIGIN'  # Allow only from the same domain
 
 
 # LOGGING

@@ -12,6 +12,8 @@ urlpatterns = [
     path("paymenthandler/<str:id>", views.payment_handler, name="payment_handler"),
 
     path("points/table.view",views.points_table,name="points_table"),
+
+    path("res",views.player_result,name="player_result"),
 ]
 
 

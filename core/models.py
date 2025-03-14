@@ -63,6 +63,9 @@ class PlayerRegistration(models.Model):
     is_paid = models.BooleanField(default=False,verbose_name="Is Player Paid")
     tx_id = models.CharField(blank=True,max_length=255,verbose_name="Transition ID#")
     
+    is_selected = models.BooleanField(default=False,verbose_name="Is the player got Selected")
+    points = models.IntegerField(default=-99,verbose_name="Player Points on Trails")
+
     created = models.DateTimeField(auto_now_add=True,verbose_name="Created At")
 
     class Meta:

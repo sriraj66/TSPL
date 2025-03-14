@@ -276,6 +276,21 @@ def points_table(request):
 def success_page(request):
     return render(request,'core/success.html')
 
+
+@login_required
+def player_result(request):
+    
+    if PlayerRegistration.objects.filter(user=request.user).exists():
+        obj = PlayerRegistration.objects.filter(user=request.user)[0]
+        
+        if obj.is_selected:
+            return render(request,'selected.html',{"data":obj})
+        else:
+            return render(request,'notSelected.html',{"data" : obj})
+    error(request,"No Data Found for you account")
+    return redirect("index")
+    # return render(request=)
+
 # EXTRA'S
 def about(request):
     return render(request,"core/about.html")

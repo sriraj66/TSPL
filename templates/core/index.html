@@ -5,12 +5,18 @@
 
 <section class="banner">
 
-    <div class="owl-carousel banner-carousel">
+    <!-- <div class="owl-carousel banner-carousel">
 
         <div class="banner-img banner-img-1">
            <img src="{% static 'assets/images/banner.png' %}" alt="">
         </div>
-    </div>
+    </div> -->
+
+    <!-- <iframe src="{% url 'player_result' %}" frameborder="0"></iframe> -->
+    <!-- <iframe src="http://127.0.0.1:8000/res" width="100" frameborder="0"></iframe> -->
+    <iframe src="https://{{ request.get_host }}{% url 'player_result' %}" width="100%" frameborder="0"></iframe>
+
+    
 </section>
 
 <section class="about-detail counter-section">
