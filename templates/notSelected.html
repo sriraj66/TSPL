@@ -10,44 +10,69 @@
       padding: 0;
       font-family: Arial, sans-serif;
       background-color: #f3f4f6;
-      overflow: hidden;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
+
     canvas {
       display: block;
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 1;
+      width: 100vw;
+      height: 100vh;
     }
+
     .container {
       position: relative;
       z-index: 2;
       text-align: center;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
       border-radius: 15px;
-      padding: 40px 60px;
+      padding: 5vw;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 90vw;
+      width: 500px;
     }
+
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
+      font-size: 2rem;
+      margin-bottom: 15px;
       color: #ef4444;
     }
+
     p {
       font-size: 1.2rem;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       color: #334155;
     }
+
     .quote {
       font-style: italic;
       color: #555;
-      margin-top: 20px;
+      margin-top: 15px;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 4vw;
+        width: 90%;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      .quote {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -56,7 +81,7 @@
   <div class="container">
     <h1>😔 Better Luck Next Time! 💔</h1>
     {% if data.points != 0 %}
-    <p>Your points: <strong>{{data.points}}</strong></p>
+    <p>Your points: <strong>{{ data.points }}</strong></p>
     {% endif %}
     <div class="quote">"Success is not final, failure is not fatal: It is the courage to continue that counts." – Winston Churchill</div>
     <p>Keep trying and see you in Selection!</p>
@@ -66,8 +91,13 @@
     const canvas = document.getElementById('emojiRain');
     const ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     const emojis = ['💔', '🌧️', '😢', '✨', '🌟'];
     const emojiArray = [];
@@ -99,6 +129,7 @@
     }
 
     function init() {
+      emojiArray.length = 0;
       for (let i = 0; i < 100; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
@@ -114,11 +145,6 @@
       emojiArray.forEach(emoji => emoji.update());
       requestAnimationFrame(animate);
     }
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
 
     init();
     animate();
