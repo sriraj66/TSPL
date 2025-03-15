@@ -5,21 +5,12 @@
 
 <section class="banner">
 
-
-    <!-- <iframe src="{% url 'player_result' %}" frameborder="0"></iframe> -->
-    <!-- <iframe src="http://127.0.0.1:8000/res" width="100" frameborder="0"></iframe> -->
-     {% if user.is_authenticated and result%}
-    <iframe src="https://{{ request.get_host }}{% url 'player_result' %}" width="100%" frameborder="0"></iframe>
-    
-    {% else %}
-
     <div class="owl-carousel banner-carousel">
 
         <div class="banner-img banner-img-1">
            <img src="{% static 'assets/images/banner.png' %}" alt="">
         </div>
     </div>
-    {% endif %}
 
     
 </section>

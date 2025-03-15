@@ -30,13 +30,13 @@ def index(request):
     # send_success_email(subject="Registration Completed", to=request.user.email, context=context)
 
     # print("Visiting Index Page")
-    hasResult = False
-    if PlayerRegistration.objects.filter(user=request.user).exists():
-        obj = PlayerRegistration.objects.filter(user=request.user)[0]
-        if obj.is_paid:
-            hasResult = True
+    # hasResult = False
+    # if PlayerRegistration.objects.filter(user=request.user).exists():
+    #     obj = PlayerRegistration.objects.filter(user=request.user)[0]
+    #     if obj.is_paid:
+    #         hasResult = True
 
-    return render(request,"core/index.html",{"result":hasResult})
+    return render(request,"core/index.html")
 
 
 @login_required
