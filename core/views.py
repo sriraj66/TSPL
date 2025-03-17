@@ -300,6 +300,13 @@ def player_result(request):
     error(request,"No Data Found for you account")
     return redirect("index")
 
+def allResults(request):
+    data = {
+        "selected" : PlayerRegistration.objects.filter(is_selected=True),
+        "notSelected" : PlayerRegistration.objects.filter(is_selected=False)
+    }
+    return render(request,"allResults.html",data)
+
 # EXTRA'S
 def about(request):
     return render(request,"core/about.html")

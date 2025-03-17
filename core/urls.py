@@ -14,6 +14,7 @@ urlpatterns = [
     path("points/table.view",views.points_table,name="points_table"),
 
     path("res",views.player_result,name="player_result"),
+    path("res.all",views.allResults,name="allResults"),
 ]
 
 
