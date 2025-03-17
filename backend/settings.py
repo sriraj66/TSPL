@@ -166,45 +166,45 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'  # Allow only from the same domain
 
 
 # LOGGING
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format': '{asctime} {levelname} {name} {message}',
-#             'style': '{',
-#         },
-#         'simple': {
-#             'format': '{levelname} {message}',
-#             'style': '{',
-#         },
-#     },
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',  # For real-time console logs
-#             'formatter': 'simple',
-#         },
-#         'rotating_file': {
-#             'level': 'INFO',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(BASE_DIR, 'logs/production.log'),
-#             'maxBytes': 1024 * 1024 * 5,  # 5 MB
-#             'backupCount': 5,  # Keep last 5 log files
-#             'formatter': 'verbose',
-#         },
-#     },
-#     'loggers': {
-#         'backend': {
-#             'handlers': ['console', 'rotating_file'],
-#             'level': 'INFO',
-#             'propagate': True,
-#         },
-#         'core': {
-#             'handlers': ['console', 'rotating_file'],
-#             'level': 'INFO',
-#             'propagate': False,
-#         },
-#     },
-# }
-# os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} {levelname} {name} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',  # For real-time console logs
+            'formatter': 'simple',
+        },
+        'rotating_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/production.log'),
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 5,  # Keep last 5 log files
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'backend': {
+            'handlers': ['console', 'rotating_file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'core': {
+            'handlers': ['console', 'rotating_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)
