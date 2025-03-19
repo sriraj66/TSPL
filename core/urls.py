@@ -15,6 +15,7 @@ urlpatterns = [
 
     path("res",views.player_result,name="player_result"),
     path("res.all",views.allResults,name="allResults"),
+    path("update/points",views.updatePoints)
 ]
 
 

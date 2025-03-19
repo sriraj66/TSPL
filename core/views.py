@@ -306,6 +306,60 @@ def allResults(request):
     }
     return render(request,"allResults.html",data)
 
+@login_required
+def updatePoints(request):
+    if not request.user.is_superuser:
+        return HttpResponse("Access Denied", status=403)
+    
+    import pandas as pd
+    df = pd.read_csv("data/csv/playerpoints.csv")
+
+    df["status"] = False 
+
+    def updateInDb(data):
+        try:
+            obj = PlayerRegistration.objects.get(reg_id=data[0])
+            obj.points = data[1]
+            obj.save()
+            data[2] = True 
+        except Exception as e:
+            logger.error(f"Error updating reg_id {data[0]}: {e}")
+            data[2] = False 
+
+    
+    data_list = df.values.tolist()
+    for row in data_list:
+        updateInDb(row)
+
+    
+    df["status"] = [row[2] for row in data_list] 
+
+    def color_status(val):
+        return f'background-color: {"green" if val else "red"}; color: white;'
+
+    table_html = (
+        df.style.map(color_status, subset=["status"])
+        .set_table_attributes('class="table table-bordered"')
+        .to_html()
+    )
+
+
+    html_response = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Player Points Update</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <style> td, th {{ text-align: center; }} </style>
+    </head>
+    <body class="container mt-4">
+        <h2 class="mb-3">Player Points</h2>
+        {table_html}
+    </body>
+    </html>
+    """
+    logger.info(f"Update Process Done")
+    return HttpResponse(html_response)
 # EXTRA'S
 def about(request):
     return render(request,"core/about.html")
